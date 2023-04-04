@@ -24,7 +24,7 @@ namespace _202223_bbs_projekt_kasse
     public partial class MainWindow : Window
     {
         public int op_mode = 0;
-        public string last_ean;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -217,10 +217,7 @@ namespace _202223_bbs_projekt_kasse
             numpad_output1.Content = null;
         }
 
-        private void add_ean()
-        {
-            bon_list.Items.Add(last_ean);
-        }
+
         private void DataReceivedHandler(
                         object sender,
                         SerialDataReceivedEventArgs e)
