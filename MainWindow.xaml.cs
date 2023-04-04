@@ -30,7 +30,7 @@ namespace _202223_bbs_projekt_kasse
         public MainWindow()
         {
             InitializeComponent();
-            SerialPort mySerialPort = new SerialPort("COM5");
+            SerialPort mySerialPort = new SerialPort("COM4");
 
             mySerialPort.BaudRate = 9600;
             mySerialPort.Parity = Parity.Odd;
@@ -41,7 +41,6 @@ namespace _202223_bbs_projekt_kasse
 
             mySerialPort.Open();
         }
-        public event System.IO.Ports.SerialDataReceivedEventHandler DataReceived;
         private void numpad_but_div_Click(object sender, RoutedEventArgs e)
         {
             op_mode = 1;
@@ -201,7 +200,7 @@ namespace _202223_bbs_projekt_kasse
                 default:
                     break;
             }
-            
+            op_mode = 0;
         }
 
         private void numpad_but_clear_Click(object sender, RoutedEventArgs e)
