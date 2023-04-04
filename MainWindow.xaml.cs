@@ -227,8 +227,8 @@ namespace _202223_bbs_projekt_kasse
             
             SerialPort sp = (SerialPort)sender;
             string indata = sp.ReadExisting();
-            last_ean = indata;
-            add_ean();
+            this.bon_list.Items.Add(indata);
+            
         }
     }
 }
