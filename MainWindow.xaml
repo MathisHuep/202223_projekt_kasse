@@ -12,50 +12,55 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="200"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="1" Grid.Column="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Button x:Name="numpad_but_1" Content="1" Grid.Column="0" Grid.Row="2" Click="numpad_but_1_Click"/>
-            <Button x:Name="numpad_but_2" Content="2" Grid.Column="1" Grid.Row="2" Click="numpad_but_2_Click"/>
-            <Button x:Name="numpad_but_3" Content="3" Grid.Column="2" Grid.Row="2" Click="numpad_but_3_Click"/>
-            <Button x:Name="numpad_but_4" Content="4" Grid.Column="0" Grid.Row="1" Click="numpad_but_4_Click"/>
-            <Button x:Name="numpad_but_5" Content="5" Grid.Column="1" Grid.Row="1" Click="numpad_but_5_Click"/>
-            <Button x:Name="numpad_but_6" Content="6" Grid.Column="2" Grid.Row="1" Click="numpad_but_6_Click"/>
-            <Button x:Name="numpad_but_7" Content="7" Grid.Column="0" Grid.Row="0" Click="numpad_but_7_Click"/>
-            <Button x:Name="numpad_but_8" Content="8" Grid.Column="1" Grid.Row="0" Click="numpad_but_8_Click"/>
-            <Button x:Name="numpad_but_9" Content="9" Grid.Column="2" Grid.Row="0" Click="numpad_but_9_Click"/>
-            <Button x:Name="numpad_but_clear" Content="C" Grid.Column="0" Grid.Row="3" Click="numpad_but_clear_Click"/>
-            <Button x:Name="numpad_but_0" Content="0" Grid.Column="1" Grid.Row="3" Click="numpad_but_0_Click"/>
-            <Button x:Name="numpad_but_div" Content="/" Grid.Column="3" Grid.Row="0"/>
-            <Button x:Name="numpad_but_mul" Content="*" Grid.Column="3" Grid.Row="1"/>
-            <Button x:Name="numpad_but_add" Content="+" Grid.Column="3" Grid.Row="2"/>
-            <Button x:Name="numpad_but_sub" Content="-" Grid.Column="3" Grid.Row="3"/>
-            <Button x:Name="numpad_but_ent" Content="ENTER" Grid.Column="2" Grid.Row="3" Click="numpad_but_ent_Click"/>
-        </Grid>
-        <Grid Grid.Column="1" Grid.Row="0">
+        <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Label x:Name="numpad_output1" FontSize="30" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="0"/>
-            <Label x:Name="numpad_output2" FontSize="30" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="1"/>
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Button x:Name="numpad_but_1" Content="1" Grid.Column="0" Grid.Row="2" Click="numpad_but_1_Click"/>
+                <Button x:Name="numpad_but_2" Content="2" Grid.Column="1" Grid.Row="2" Click="numpad_but_2_Click"/>
+                <Button x:Name="numpad_but_3" Content="3" Grid.Column="2" Grid.Row="2" Click="numpad_but_3_Click"/>
+                <Button x:Name="numpad_but_4" Content="4" Grid.Column="0" Grid.Row="1" Click="numpad_but_4_Click"/>
+                <Button x:Name="numpad_but_5" Content="5" Grid.Column="1" Grid.Row="1" Click="numpad_but_5_Click"/>
+                <Button x:Name="numpad_but_6" Content="6" Grid.Column="2" Grid.Row="1" Click="numpad_but_6_Click"/>
+                <Button x:Name="numpad_but_7" Content="7" Grid.Column="0" Grid.Row="0" Click="numpad_but_7_Click"/>
+                <Button x:Name="numpad_but_8" Content="8" Grid.Column="1" Grid.Row="0" Click="numpad_but_8_Click"/>
+                <Button x:Name="numpad_but_9" Content="9" Grid.Column="2" Grid.Row="0" Click="numpad_but_9_Click"/>
+                <Button x:Name="numpad_but_clear" Content="C" Grid.Column="0" Grid.Row="3" Click="numpad_but_clear_Click"/>
+                <Button x:Name="numpad_but_0" Content="0" Grid.Column="1" Grid.Row="3" Click="numpad_but_0_Click"/>
+                <Button x:Name="numpad_but_div" Content="/" Grid.Column="3" Grid.Row="0" Click="numpad_but_div_Click"/>
+                <Button x:Name="numpad_but_mul" Content="*" Grid.Column="3" Grid.Row="1" Click="numpad_but_mul_Click"/>
+                <Button x:Name="numpad_but_add" Content="+" Grid.Column="3" Grid.Row="2" Click="numpad_but_add_Click"/>
+                <Button x:Name="numpad_but_sub" Content="-" Grid.Column="3" Grid.Row="3" Click="numpad_but_sub_Click"/>
+                <Button x:Name="numpad_but_ent" Content="ENTER" Grid.Column="2" Grid.Row="3" Click="numpad_but_ent_Click"/>
+            </Grid>
+            <Grid Grid.Column="1" Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label x:Name="numpad_output1" FontSize="30" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="0"/>
+                <Label x:Name="numpad_output2" FontSize="30" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="1"/>
+            </Grid>
         </Grid>
+
+ 
         
-        <ListView x:Name="bon_list" Grid.RowSpan="2" Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="False"/>
+        <ListView x:Name="bon_list" Grid.Column="0" VerticalContentAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="False"/>
+        
 
     </Grid>
 </Window>
