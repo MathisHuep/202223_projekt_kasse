@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace _202223_bbs_projekt_kasse
 {
@@ -227,8 +228,10 @@ namespace _202223_bbs_projekt_kasse
             
             SerialPort sp = (SerialPort)sender;
             string indata = sp.ReadExisting();
-            this.bon_list.Items.Add(indata);
-            
+            Dispatcher.CurrentDispatcher.BeginInvoke(new Action(() =>
+            {
+                bon_list.Items.Add(indata);
+            }));
         }
     }
 }
