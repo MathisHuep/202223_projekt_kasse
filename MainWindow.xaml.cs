@@ -30,8 +30,18 @@ namespace _202223_bbs_projekt_kasse
         public MainWindow()
         {
             InitializeComponent();
+            SerialPort mySerialPort = new SerialPort("COM5");
+
+            mySerialPort.BaudRate = 9600;
+            mySerialPort.Parity = Parity.Odd;
+            mySerialPort.StopBits = StopBits.One;
+            mySerialPort.DataBits = 8;
+
+            mySerialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
+
+            mySerialPort.Open();
         }
-        
+        public event System.IO.Ports.SerialDataReceivedEventHandler DataReceived;
         private void numpad_but_div_Click(object sender, RoutedEventArgs e)
         {
             op_mode = 1;
@@ -199,34 +209,16 @@ namespace _202223_bbs_projekt_kasse
             numpad_output1.Content = null;
         }
 
-
-
-    }
-    public class Scanning
-    {
-        public Scanning()
+        private void DataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
         {
-            SerialPort mySerialPort = new SerialPort("COM5");
-
-            mySerialPort.BaudRate = 9600;
-            mySerialPort.Parity = Parity.Odd;
-            mySerialPort.StopBits = StopBits.One;
-            mySerialPort.DataBits = 8;
-
-            mySerialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
-
-            mySerialPort.Open();
-        }
-        public event System.IO.Ports.SerialDataReceivedEventHandler DataReceived;
-        public void DataReceivedHandler(object sender,SerialDataReceivedEventArgs e)
-        {
-            var Window = sender as MainWindow;
+            
             SerialPort sp = (SerialPort)sender;
             string indata = sp.ReadExisting();
-            Dispatcher.CurrentDispatcher.BeginInvoke(new Action(() =>
+            this.Dispatcher.Invoke(() =>
             {
-                Window.bon_list.Items.Add(indata);
-            }));
+                bon_list.Items.Add(indata);
+            });
         }
+
     }
 }
