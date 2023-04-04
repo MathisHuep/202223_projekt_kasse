@@ -4,6 +4,7 @@ using System.IO.Ports;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,6 +22,7 @@ namespace _202223_bbs_projekt_kasse
     /// <summary>
     /// Interaktionslogik für MainWindow.xaml
     /// </summary>
+    public delegate void Notify();
     public partial class MainWindow : Window
     {
         public int op_mode = 0;
@@ -28,6 +30,8 @@ namespace _202223_bbs_projekt_kasse
         public MainWindow()
         {
             InitializeComponent();
+
+            
             SerialPort mySerialPort = new SerialPort("COM5");
 
             mySerialPort.BaudRate = 9600;
