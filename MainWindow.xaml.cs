@@ -23,9 +23,12 @@ namespace _202223_bbs_projekt_kasse
     /// Interaktionslogik für MainWindow.xaml
     /// </summary>
 
+
     public partial class MainWindow : Window
     {
         public int op_mode = 0;
+        public delegate void AddDataDelegate(String myString);
+        public AddDataDelegate myDelegate;
 
         public MainWindow()
         {
@@ -33,14 +36,28 @@ namespace _202223_bbs_projekt_kasse
             SerialPort mySerialPort = new SerialPort("COM4");
 
             mySerialPort.BaudRate = 9600;
-            mySerialPort.Parity = Parity.Odd;
+            mySerialPort.Parity = Parity.None;
             mySerialPort.StopBits = StopBits.One;
             mySerialPort.DataBits = 8;
+            mySerialPort.Handshake = Handshake.None;
+            mySerialPort.RtsEnable = true;
+            mySerialPort.DtrEnable = true;
 
-            mySerialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
+
+            mySerialPort.DataReceived += new SerialDataReceivedEventHandler(this.DataReceivedHandler);
 
             mySerialPort.Open();
+
         }
+        private void DataReceivedHandler(object sender,
+            SerialDataReceivedEventArgs e)
+        {
+
+            SerialPort sp = (SerialPort)sender;
+            string indata = sp.ReadExisting();
+            Dispatcher.Invoke(() => bon_list.Items.Add(indata));
+        }
+
         private void numpad_but_div_Click(object sender, RoutedEventArgs e)
         {
             op_mode = 1;
@@ -208,16 +225,7 @@ namespace _202223_bbs_projekt_kasse
             numpad_output1.Content = null;
         }
 
-        private void DataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
-        {
-            
-            SerialPort sp = (SerialPort)sender;
-            string indata = sp.ReadExisting();
-            this.Dispatcher.Invoke(() =>
-            {
-                bon_list.Items.Add(indata);
-            });
-        }
+        
 
     }
 }
