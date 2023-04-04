@@ -22,7 +22,7 @@ namespace _202223_bbs_projekt_kasse
     /// <summary>
     /// Interaktionslogik für MainWindow.xaml
     /// </summary>
-    public delegate void Notify();
+
     public partial class MainWindow : Window
     {
         public int op_mode = 0;
@@ -30,21 +30,8 @@ namespace _202223_bbs_projekt_kasse
         public MainWindow()
         {
             InitializeComponent();
-
-            
-            SerialPort mySerialPort = new SerialPort("COM5");
-
-            mySerialPort.BaudRate = 9600;
-            mySerialPort.Parity = Parity.Odd;
-            mySerialPort.StopBits = StopBits.One;
-            mySerialPort.DataBits = 8;
-
-            mySerialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
-
-            mySerialPort.Open();
-
         }
-        public event System.IO.Ports.SerialDataReceivedEventHandler DataReceived;
+        
         private void numpad_but_div_Click(object sender, RoutedEventArgs e)
         {
             op_mode = 1;
@@ -196,15 +183,6 @@ namespace _202223_bbs_projekt_kasse
                 case 1:
                     {
                         //DIV
-                        try
-                        {
-
-                        }
-                        catch (Exception)
-                        {
-
-                            throw;
-                        }
                         numpad_output1.Content = System.Convert.ToInt32(numpad_output1.Content) / System.Convert.ToInt32(numpad_output2.Content);
                         numpad_output2.Content = null;
                         break;
@@ -222,16 +200,32 @@ namespace _202223_bbs_projekt_kasse
         }
 
 
-        private void DataReceivedHandler(
-                        object sender,
-                        SerialDataReceivedEventArgs e)
+
+    }
+    public class Scanning
+    {
+        public Scanning()
         {
-            
+            SerialPort mySerialPort = new SerialPort("COM5");
+
+            mySerialPort.BaudRate = 9600;
+            mySerialPort.Parity = Parity.Odd;
+            mySerialPort.StopBits = StopBits.One;
+            mySerialPort.DataBits = 8;
+
+            mySerialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
+
+            mySerialPort.Open();
+        }
+        public event System.IO.Ports.SerialDataReceivedEventHandler DataReceived;
+        public void DataReceivedHandler(object sender,SerialDataReceivedEventArgs e)
+        {
+            var Window = sender as MainWindow;
             SerialPort sp = (SerialPort)sender;
             string indata = sp.ReadExisting();
             Dispatcher.CurrentDispatcher.BeginInvoke(new Action(() =>
             {
-                bon_list.Items.Add(indata);
+                Window.bon_list.Items.Add(indata);
             }));
         }
     }
