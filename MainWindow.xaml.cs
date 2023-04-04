@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.Ports;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -25,8 +26,19 @@ namespace _202223_bbs_projekt_kasse
         public MainWindow()
         {
             InitializeComponent();
-        }
+            SerialPort mySerialPort = new SerialPort("COM5");
 
+            mySerialPort.BaudRate = 9600;
+            mySerialPort.Parity = Parity.Odd;
+            mySerialPort.StopBits = StopBits.One;
+            mySerialPort.DataBits = 8;
+
+            mySerialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
+
+            mySerialPort.Open();
+
+        }
+        public event System.IO.Ports.SerialDataReceivedEventHandler DataReceived;
         private void numpad_but_div_Click(object sender, RoutedEventArgs e)
         {
             op_mode = 1;
@@ -201,6 +213,16 @@ namespace _202223_bbs_projekt_kasse
         private void numpad_but_clear_Click(object sender, RoutedEventArgs e)
         {
             numpad_output1.Content = null;
+        }
+
+        private static void DataReceivedHandler(
+                        object sender,
+                        SerialDataReceivedEventArgs e)
+        {
+            var MainWindow = new MainWindow();
+            SerialPort sp = (SerialPort)sender;
+            string indata = sp.ReadExisting();
+            MainWindow.bon_list.Items.Add(indata);
         }
     }
 }
