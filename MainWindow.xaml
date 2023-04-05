@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_202223_bbs_projekt_kasse"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="900">
+        Title="Kasse" Height="450" Width="900">
     <Grid>
         
         <Grid.ColumnDefinitions>
@@ -66,5 +66,6 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        
     </Grid>
 </Window>

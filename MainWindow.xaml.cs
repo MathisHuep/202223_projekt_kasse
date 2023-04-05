@@ -29,9 +29,10 @@ namespace _202223_bbs_projekt_kasse
     /// Interaktionslogik für MainWindow.xaml
     /// </summary>
 
-
+    
     public partial class MainWindow : Window
     {
+        public string comm_port = GLOBALS.COMM_PORT_SCN;
         public int op_mode = 0;
         SerialPort serialPort = null;
         public MySqlConnection connection = null;
@@ -39,7 +40,9 @@ namespace _202223_bbs_projekt_kasse
         public MainWindow()
         {
             InitializeComponent();
-            
+
+            WindowOptions WinOpt = new WindowOptions();
+            WinOpt.ShowDialog();
 
             Thread scanning = new Thread(MyCommPort);
             Thread SQlquery = new Thread(Connect_to_SQL);
@@ -218,7 +221,7 @@ namespace _202223_bbs_projekt_kasse
         }
         public void MyCommPort()
         {
-            serialPort = new SerialPort("COM5");
+            serialPort = new SerialPort(GLOBALS.COMM_PORT_SCN);
             serialPort.BaudRate = 9600;
             serialPort.Parity = Parity.Odd;
             serialPort.StopBits = StopBits.One;
@@ -266,7 +269,7 @@ namespace _202223_bbs_projekt_kasse
 
         public void Connect_to_SQL() 
         {
-            string connectionString = "Server=localhost;Database=kasse;Uid=root";
+            string connectionString = $"Server={GLOBALS.SQL_IP};Database={GLOBALS.SQL_DB};Uid={GLOBALS.SQL_USER}";
             try
             {
                 connection = new MySqlConnection(connectionString);
@@ -280,7 +283,7 @@ namespace _202223_bbs_projekt_kasse
     }
 
     public class Produkt
-    { 
+    {
         public string Barcode { get; set; }
         public float Preis { get; set; }
         public string Hersteller { get; set; }
