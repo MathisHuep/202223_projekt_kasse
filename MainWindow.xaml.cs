@@ -19,6 +19,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using MySql.Data;
+using MySql.Data.MySqlClient;
+
 
 namespace _202223_bbs_projekt_kasse
 {
@@ -38,7 +41,7 @@ namespace _202223_bbs_projekt_kasse
             
 
             Thread scanning = new Thread(MyCommPort);
-            Thread SQlquery = 
+            Thread SQlquery = new Thread(Connect_to_SQL);
             scanning.Start();
 
             bon_l del = (s) =>
@@ -248,8 +251,19 @@ namespace _202223_bbs_projekt_kasse
         }
 
         public void Connect_to_SQL() 
-        { 
-            
+        {
+            string connectionString = "Server=localhost;Database=kasse;Uid=root";
+            MySqlConnection connection = null;
+            try
+            {
+                connection = new MySqlConnection(connectionString);
+                connection.Open();
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
+
         }
     }
 }
