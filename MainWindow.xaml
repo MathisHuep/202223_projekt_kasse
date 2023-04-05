@@ -57,6 +57,13 @@
                 <Label x:Name="numpad_output2" FontSize="30" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="1"/>
             </Grid>
         </Grid>
-        <ListView x:Name="bon_list" Grid.Column="0" VerticalContentAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="False"/>
+        <ListView x:Name="bon_list" Grid.Column="0" VerticalContentAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Produkt"/>
+                    <GridViewColumn Header="Preis"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Window>
