@@ -44,29 +44,8 @@ namespace _202223_bbs_projekt_kasse
             {
                 bon_list.Items.Add(s);
             };
-            /*mySerialPort.BaudRate = 9600;
-            mySerialPort.Parity = Parity.None;
-            mySerialPort.StopBits = StopBits.One;
-            mySerialPort.DataBits = 8;
-            mySerialPort.Handshake = Handshake.None;
-            mySerialPort.RtsEnable = true;
-            mySerialPort.DtrEnable = true;
-
-
-            mySerialPort.DataReceived += new SerialDataReceivedEventHandler(this.DataReceivedHandler);
-
-            mySerialPort.Open();*/
-
-
         }
-        /*private void DataReceivedHandler(object sender,
-            SerialDataReceivedEventArgs e)
-        {
 
-            SerialPort sp = (SerialPort)sender;
-            string indata = sp.ReadExisting();
-            Dispatcher.Invoke(() => bon_list.Items.Add(indata));
-        }*/
 
         private void numpad_but_div_Click(object sender, RoutedEventArgs e)
         {
@@ -249,50 +228,20 @@ namespace _202223_bbs_projekt_kasse
             serialPort.Open();
         }
 
-        public void add_to_list(string data)
-        {
-            bon_list.Items.Add(data);
-        }
         private void OnDataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             var serialDevice = sender as SerialPort;
             var buffer = new byte[serialDevice.BytesToRead];
             serialDevice.Read(buffer, 0, buffer.Length);
 
-            // process data on the GUI thread
             Application.Current.Dispatcher.Invoke(new Action(() => {
+                string aggr = null;
                 foreach (var item in buffer)
                 {
-                    bon_list.Items.Add(Convert.ToChar(item));
+                    aggr += Convert.ToChar(item);                
                 }
-                
+                bon_list.Items.Add(aggr);
             }));
         }
     }
-    /*public class MyCommPort : INotifyPropertyChanged
-    {
-        SerialPort serialPort = null;
-        public MyCommPort()
-        {
-            serialPort = new SerialPort("COM4", 9600);
-            serialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
-            serialPort.Open();
-        }
-        ~MyCommPort()
-        {
-            serialPort.Close();
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void DataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
-        {
-            SerialPort sp = (SerialPort)sender;
-            
-            string indata = sp.ReadLine();
-            //Dispatcher.Invoke(() => MainWindow.bon_list.Items.Add(indata));
-        }
-
-        
-    }*/
 }
