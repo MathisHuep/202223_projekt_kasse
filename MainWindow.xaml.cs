@@ -26,7 +26,7 @@ namespace _202223_bbs_projekt_kasse
     /// Interaktionslogik für MainWindow.xaml
     /// </summary>
 
-    public delegate void bon_l(string s);
+
     public partial class MainWindow : Window
     {
         public int op_mode = 0;
@@ -41,10 +41,7 @@ namespace _202223_bbs_projekt_kasse
             Thread SQlquery = 
             scanning.Start();
 
-            bon_l del = (s) =>
-            {
-                bon_list.Items.Add(s);
-            };
+
         }
 
 
