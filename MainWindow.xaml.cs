@@ -34,6 +34,7 @@ namespace _202223_bbs_projekt_kasse
     {
         public int op_mode = 0;
         SerialPort serialPort = null;
+        public MySqlConnection connection = null;
 
         public MainWindow()
         {
@@ -42,6 +43,7 @@ namespace _202223_bbs_projekt_kasse
 
             Thread scanning = new Thread(MyCommPort);
             Thread SQlquery = new Thread(Connect_to_SQL);
+            SQlquery.Start();
             scanning.Start();
 
 
@@ -237,6 +239,21 @@ namespace _202223_bbs_projekt_kasse
             string barcode = serialDevice.ReadLine();
             barcode = barcode.Remove(barcode.Length - 1);
 
+            string sql = $"SELECT Bezeichnung, Preis, Hersteller FROM produkte WHERE EAN = {barcode}";
+            MySqlCommand command = new MySqlCommand(sql, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                string bezeichnung = reader.GetString("Bezeichnung");
+                float preis = reader.GetFloat("Preis");
+                string hersteller = reader.GetString("Hersteller");
+            }
+            else
+            {
+                //Fehlermeldung no product found (Mathis) :)
+            }
+            reader.Close();
+
             Application.Current.Dispatcher.Invoke(new Action(() => {
                 string aggr = null;
                 /*foreach (var item in buffer)
@@ -250,7 +267,6 @@ namespace _202223_bbs_projekt_kasse
         public void Connect_to_SQL() 
         {
             string connectionString = "Server=localhost;Database=kasse;Uid=root";
-            MySqlConnection connection = null;
             try
             {
                 connection = new MySqlConnection(connectionString);
