@@ -38,6 +38,7 @@ namespace _202223_bbs_projekt_kasse
             
 
             Thread scanning = new Thread(MyCommPort);
+            Thread SQlquery = 
             scanning.Start();
 
             bon_l del = (s) =>
@@ -244,6 +245,11 @@ namespace _202223_bbs_projekt_kasse
                 }*/
                 bon_list.Items.Add(barcode);
             }));
+        }
+
+        public void Connect_to_SQL() 
+        { 
+            
         }
     }
 }
