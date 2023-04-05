@@ -215,7 +215,7 @@ namespace _202223_bbs_projekt_kasse
         }
         public void MyCommPort()
         {
-            serialPort = new SerialPort("COM4");
+            serialPort = new SerialPort("COM5");
             serialPort.BaudRate = 9600;
             serialPort.Parity = Parity.Odd;
             serialPort.StopBits = StopBits.One;
@@ -231,16 +231,18 @@ namespace _202223_bbs_projekt_kasse
         private void OnDataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             var serialDevice = sender as SerialPort;
-            var buffer = new byte[serialDevice.BytesToRead];
-            serialDevice.Read(buffer, 0, buffer.Length);
+            //var buffer = new byte[serialDevice.BytesToRead];
+            //serialDevice.Read(buffer, 0, buffer.Length);
+            string barcode = serialDevice.ReadLine();
+            barcode = barcode.Remove(barcode.Length - 1);
 
             Application.Current.Dispatcher.Invoke(new Action(() => {
                 string aggr = null;
-                foreach (var item in buffer)
+                /*foreach (var item in buffer)
                 {
                     aggr += Convert.ToChar(item);                
-                }
-                bon_list.Items.Add(aggr);
+                }*/
+                bon_list.Items.Add(barcode);
             }));
         }
     }
