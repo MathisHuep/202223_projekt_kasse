@@ -245,8 +245,9 @@ namespace _202223_bbs_projekt_kasse
 
             string sql = $"SELECT Bezeichnung, Preis, Hersteller FROM produkte WHERE EAN = {barcode}";
             MySqlCommand command = new MySqlCommand(sql, connection);
+            connection.Open();
             MySqlDataReader reader = command.ExecuteReader();
-            try
+            if(reader.Read())
             {
                 bezeichnung = reader.GetString("Bezeichnung");
                 preis = reader.GetFloat("Preis");
@@ -255,12 +256,12 @@ namespace _202223_bbs_projekt_kasse
                     bon_list.Items.Add(new Produkt { Barcode = barcode, Hersteller = hersteller, Preis = preis, Name = bezeichnung });
                 }));
             }
-            catch (Exception ex) 
+            else 
             {
-                //Fehlermeldung no product found (Mathis) :)
-                return;
+                //Fehlermeldung no product found (Mathis)
             }
             reader.Close();
+            connection.Close();
         }
 
         public void Connect_to_SQL() 
@@ -269,7 +270,6 @@ namespace _202223_bbs_projekt_kasse
             try
             {
                 connection = new MySqlConnection(connectionString);
-                connection.Open();
             }
             catch (Exception ex)
             {
