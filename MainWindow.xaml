@@ -60,8 +60,9 @@
         <ListView x:Name="bon_list" Grid.Column="0" VerticalContentAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Produkt"/>
+                    <GridViewColumn Header="Name"/>
                     <GridViewColumn Header="Preis"/>
+                    <GridViewColumn Header="Hersteller"/>
                 </GridView>
             </ListView.View>
         </ListView>

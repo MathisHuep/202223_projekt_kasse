@@ -239,29 +239,28 @@ namespace _202223_bbs_projekt_kasse
             string barcode = serialDevice.ReadLine();
             barcode = barcode.Remove(barcode.Length - 1);
 
+            string bezeichnung;
+            float preis;
+            string hersteller;
+
             string sql = $"SELECT Bezeichnung, Preis, Hersteller FROM produkte WHERE EAN = {barcode}";
             MySqlCommand command = new MySqlCommand(sql, connection);
             MySqlDataReader reader = command.ExecuteReader();
-            if (reader.Read())
+            try
             {
-                string bezeichnung = reader.GetString("Bezeichnung");
-                float preis = reader.GetFloat("Preis");
-                string hersteller = reader.GetString("Hersteller");
+                bezeichnung = reader.GetString("Bezeichnung");
+                preis = reader.GetFloat("Preis");
+                hersteller = reader.GetString("Hersteller");
+                Application.Current.Dispatcher.Invoke(new Action(() => {
+                    bon_list.Items.Add(new Produkt { Barcode = barcode, Hersteller = hersteller, Preis = preis, Name = bezeichnung });
+                }));
             }
-            else
+            catch (Exception ex) 
             {
                 //Fehlermeldung no product found (Mathis) :)
+                return;
             }
             reader.Close();
-
-            Application.Current.Dispatcher.Invoke(new Action(() => {
-                string aggr = null;
-                /*foreach (var item in buffer)
-                {
-                    aggr += Convert.ToChar(item);                
-                }*/
-                bon_list.Items.Add(barcode);
-            }));
         }
 
         public void Connect_to_SQL() 
@@ -278,5 +277,13 @@ namespace _202223_bbs_projekt_kasse
             }
 
         }
+    }
+
+    public class Produkt
+    { 
+        public string Barcode { get; set; }
+        public float Preis { get; set; }
+        public string Hersteller { get; set; }
+        public string Name { get; set; }
     }
 }
