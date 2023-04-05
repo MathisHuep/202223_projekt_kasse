@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO.Ports;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,6 +13,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
@@ -23,19 +26,25 @@ namespace _202223_bbs_projekt_kasse
     /// Interaktionslogik für MainWindow.xaml
     /// </summary>
 
-
+    public delegate void bon_l(string s);
     public partial class MainWindow : Window
     {
         public int op_mode = 0;
-        public delegate void AddDataDelegate(String myString);
-        public AddDataDelegate myDelegate;
+        SerialPort serialPort = null;
 
         public MainWindow()
         {
             InitializeComponent();
-            SerialPort mySerialPort = new SerialPort("COM4");
+            
 
-            mySerialPort.BaudRate = 9600;
+            Thread scanning = new Thread(MyCommPort);
+            scanning.Start();
+
+            bon_l del = (s) =>
+            {
+                bon_list.Items.Add(s);
+            };
+            /*mySerialPort.BaudRate = 9600;
             mySerialPort.Parity = Parity.None;
             mySerialPort.StopBits = StopBits.One;
             mySerialPort.DataBits = 8;
@@ -46,17 +55,18 @@ namespace _202223_bbs_projekt_kasse
 
             mySerialPort.DataReceived += new SerialDataReceivedEventHandler(this.DataReceivedHandler);
 
-            mySerialPort.Open();
+            mySerialPort.Open();*/
+
 
         }
-        private void DataReceivedHandler(object sender,
+        /*private void DataReceivedHandler(object sender,
             SerialDataReceivedEventArgs e)
         {
 
             SerialPort sp = (SerialPort)sender;
             string indata = sp.ReadExisting();
             Dispatcher.Invoke(() => bon_list.Items.Add(indata));
-        }
+        }*/
 
         private void numpad_but_div_Click(object sender, RoutedEventArgs e)
         {
@@ -224,8 +234,65 @@ namespace _202223_bbs_projekt_kasse
         {
             numpad_output1.Content = null;
         }
+        public void MyCommPort()
+        {
+            serialPort = new SerialPort("COM4");
+            serialPort.BaudRate = 9600;
+            serialPort.Parity = Parity.Odd;
+            serialPort.StopBits = StopBits.One;
+            serialPort.DataBits = 8;
+            serialPort.Handshake = Handshake.None;
+            serialPort.RtsEnable = true;
+            serialPort.DtrEnable = true;
+
+            serialPort.DataReceived += new SerialDataReceivedEventHandler(OnDataReceived);
+            serialPort.Open();
+        }
+
+        public void add_to_list(string data)
+        {
+            bon_list.Items.Add(data);
+        }
+        private void OnDataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            var serialDevice = sender as SerialPort;
+            var buffer = new byte[serialDevice.BytesToRead];
+            serialDevice.Read(buffer, 0, buffer.Length);
+
+            // process data on the GUI thread
+            Application.Current.Dispatcher.Invoke(new Action(() => {
+                foreach (var item in buffer)
+                {
+                    bon_list.Items.Add(Convert.ToChar(item));
+                }
+                
+            }));
+        }
+    }
+    /*public class MyCommPort : INotifyPropertyChanged
+    {
+        SerialPort serialPort = null;
+        public MyCommPort()
+        {
+            serialPort = new SerialPort("COM4", 9600);
+            serialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
+            serialPort.Open();
+        }
+        ~MyCommPort()
+        {
+            serialPort.Close();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void DataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
+        {
+            SerialPort sp = (SerialPort)sender;
+            
+            string indata = sp.ReadLine();
+            //Dispatcher.Invoke(() => MainWindow.bon_list.Items.Add(indata));
+        }
 
         
-
-    }
+    }*/
 }
