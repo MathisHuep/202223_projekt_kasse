@@ -276,9 +276,9 @@ namespace _202223_bbs_projekt_kasse
             }
             catch (Exception ex)
             {
+                throw new Exception();
                 return;
             }
-
         }
     }
 
