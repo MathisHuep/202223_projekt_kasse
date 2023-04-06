@@ -5,8 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_202223_bbs_projekt_kasse"
         mc:Ignorable="d"
-        Title="changeScreen" Height="450" Width="800">
+        Title="Rückgeld"  MinHeight="200" MaxHeight="200" MinWidth="400" MaxWidth="400">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="gegeben EUR:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="23" Grid.Column="0" Grid.Row="0"/>
+        <TextBlock Text="zu zahlen EUR:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="23" Grid.Column="0" Grid.Row="1"/>
+        <TextBlock Text="Rückgeld EUR:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="23" Grid.Column="0" Grid.Row="2"/>
+        <TextBlock x:Name="cash_given" Grid.Column="1" Grid.Row="0"/>
+        <TextBlock x:Name="bon_list_total" Grid.Column="1" Grid.Row="1"/>
+        <TextBlock x:Name="change" Grid.Column="1" Grid.Row="2"/>
+        <Button Content="Fertig" FontSize="20" Click="confirmChangeClick" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2"/>
     </Grid>
 </Window>

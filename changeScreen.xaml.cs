@@ -23,5 +23,10 @@ namespace _202223_bbs_projekt_kasse
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
