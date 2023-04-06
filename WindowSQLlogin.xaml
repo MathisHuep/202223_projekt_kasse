@@ -21,10 +21,10 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="SQL Ip address: " HorizontalAlignment="Right" Grid.Row="0"/>
+            <TextBlock Text="SQL IP-Address: " HorizontalAlignment="Right" Grid.Row="0"/>
             <TextBlock Text="SQL Username: " HorizontalAlignment="Right" Grid.Row="1"/>
             <TextBlock Text="SQL Password: " HorizontalAlignment="Right" Grid.Row="2"/>
-            <TextBlock Text="SQL Datenbank Name: " HorizontalAlignment="Right" Grid.Row="3"/>
+            <TextBlock Text="SQL Datenbankname: " HorizontalAlignment="Right" Grid.Row="3"/>
 
             <TextBox x:Name="sqliplogin" Text="localhost" Grid.Column="1" Grid.Row="0"/>
             <TextBox x:Name="sqluserlogin" Text="root" Grid.Column="1" Grid.Row="1"/>

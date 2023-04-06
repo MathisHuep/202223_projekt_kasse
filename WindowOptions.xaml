@@ -21,12 +21,12 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="SQL Ip address: " HorizontalAlignment="Right" Grid.Row="0"/>
+        <TextBlock Text="SQL IP-Address: " HorizontalAlignment="Right" Grid.Row="0"/>
         <TextBlock Text="SQL Username: " HorizontalAlignment="Right" Grid.Row="1"/>
         <TextBlock Text="SQL Password: " HorizontalAlignment="Right" Grid.Row="2"/>
-        <TextBlock Text="SQL Datenbank Name: " HorizontalAlignment="Right" Grid.Row="3"/>
-        <TextBlock Text="COMM Port Display: " HorizontalAlignment="Right" Grid.Row="4"/>
-        <TextBlock Text="COMM Port Scanner: " HorizontalAlignment="Right" Grid.Row="5"/>
+        <TextBlock Text="SQL Datenbankname: " HorizontalAlignment="Right" Grid.Row="3"/>
+        <TextBlock Text="COM Port Display: " HorizontalAlignment="Right" Grid.Row="4"/>
+        <TextBlock Text="COM Port Scanner: " HorizontalAlignment="Right" Grid.Row="5"/>
 
 
         <TextBox x:Name="sqlip" Text="localhost" Grid.Column="1" Grid.Row="0"/>
@@ -34,7 +34,7 @@
         <PasswordBox x:Name="sqlpass" Grid.Column="1" Grid.Row="2"/>
         <TextBox x:Name="sqldb" Text="kasse" Grid.Column="1" Grid.Row="3"/>
         <TextBox x:Name="commdisp" Text="" Grid.Column="1" Grid.Row="4"/>
-        <TextBox x:Name="commscn" Text="COM4" Grid.Column="1" Grid.Row="5"/>
+        <TextBox x:Name="commscn" Text="COM5" Grid.Column="1" Grid.Row="5"/>
         
         <Button Content="Confirm" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="6"  Click="Button_Click"/>
 
