@@ -40,6 +40,8 @@ namespace _202223_bbs_projekt_kasse
         public MainWindow()
         {
             InitializeComponent();
+            bon_list_sum.Text = "0.00";
+            bon_list_total.Text = "0.00";
 
             WindowOptions WinOpt = new WindowOptions();
             WinOpt.ShowDialog();
@@ -48,6 +50,7 @@ namespace _202223_bbs_projekt_kasse
             Thread SQlquery = new Thread(Connect_to_SQL);
             SQlquery.Start();
             scanning.Start();
+
 
 
         }
@@ -257,6 +260,8 @@ namespace _202223_bbs_projekt_kasse
                 hersteller = reader.GetString("Hersteller");
                 Application.Current.Dispatcher.Invoke(new Action(() => {
                     bon_list.Items.Add(new Produkt { Barcode = barcode, Hersteller = hersteller, Preis = preis, Name = bezeichnung });
+                    bon_list_sum.Text = Convert.ToString(preis);
+                    bon_list_total.Text = Convert.ToString(Math.Round(Convert.ToDouble(bon_list_total.Text) + preis, 3));
                 }));
             }
             else 
