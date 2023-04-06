@@ -134,6 +134,7 @@ namespace _202223_bbs_projekt_kasse
         private void checkoutClick(object sender, RoutedEventArgs e)
         {
             GLOBALS.currentBon = bon_list.Items;
+            GLOBALS.Total = Convert.ToDouble(bon_list_total.Text);
             if (GLOBALS.currentBon != null)
             {
                 checkoutScreen chescr = new checkoutScreen();

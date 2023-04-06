@@ -23,6 +23,7 @@ namespace _202223_bbs_projekt_kasse
         public checkoutScreen()
         {
             InitializeComponent();
+            bon_list_total.Text = Convert.ToString(GLOBALS.Total);
             foreach (var item in GLOBALS.currentBon)
             {
                 bon_list.Items.Add(item);
