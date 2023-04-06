@@ -267,12 +267,12 @@ namespace _202223_bbs_projekt_kasse
                     bon_list_sum.Text = Convert.ToString(preis);
                     bon_list_total.Text = Convert.ToString(Math.Round(Convert.ToDouble(bon_list_total.Text) + preis, 3));
                 }));
-                Debug.WriteLine("Produkt Gefunden");
+                Debug.WriteLine("Produkt gefunden");
             }
             else 
             {
                 //Fehlermeldung no product found (Mathis)
-                Debug.WriteLine($"Produkt fehler/Nicht in Datenbank/{connection.State}");
+                Debug.WriteLine($"Produktfehler/Nicht in der Datenbank/{connection.State}");
             }
             reader.Close();
             connection.Close();
@@ -289,7 +289,7 @@ namespace _202223_bbs_projekt_kasse
             }
             catch (Exception)
             {
-                Debug.WriteLine($"SQL Connection Failed. SQL connection State: {connection.State}");
+                Debug.WriteLine($"SQL Connection failed. SQL connection state: {connection.State}");
                                
                 Application.Current.Dispatcher.Invoke(new Action(() =>
                 {
