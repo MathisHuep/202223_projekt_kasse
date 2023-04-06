@@ -56,23 +56,6 @@ namespace _202223_bbs_projekt_kasse
 
         }
 
-
-        private void numpad_but_div_Click(object sender, RoutedEventArgs e)
-        {
-            op_mode = 1;
-        }
-        private void numpad_but_mul_Click(object sender, RoutedEventArgs e)
-        {
-            op_mode = 2;
-        }
-        private void numpad_but_add_Click(object sender, RoutedEventArgs e)
-        {
-            op_mode = 3;
-        }
-        private void numpad_but_sub_Click(object sender, RoutedEventArgs e)
-        {
-            op_mode = 4;
-        }
         private void numpad_but_1_Click(object sender, RoutedEventArgs e)
         {
             numpad_output1.Content += "1";            
