@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:_202223_bbs_projekt_kasse"
         mc:Ignorable="d"
         Title="WindowOptions" MaxHeight="200" MaxWidth="400" MinHeight="200" MinWidth="400">
-    <Grid Margin="20">
+    <Grid Margin="0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
