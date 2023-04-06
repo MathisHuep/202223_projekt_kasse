@@ -75,123 +75,52 @@ namespace _202223_bbs_projekt_kasse
         }
         private void numpad_but_1_Click(object sender, RoutedEventArgs e)
         {
-            if (op_mode != 0)
-            {
-                numpad_output2.Content += "1";
-            }
-            else
-            {
-                numpad_output1.Content += "1";
-            }
-            
+            numpad_output1.Content += "1";            
         }
 
         private void numpad_but_2_Click(object sender, RoutedEventArgs e)
         {
-            if (op_mode != 0)
-            {
-                numpad_output2.Content += "2";
-            }
-            else
-            {
-                numpad_output1.Content += "2";
-            }
+            numpad_output1.Content += "2";
         }
 
         private void numpad_but_3_Click(object sender, RoutedEventArgs e)
         {
-            if (op_mode != 0)
-            {
-                numpad_output2.Content += "3";
-            }
-            else
-            {
-                numpad_output1.Content += "3";
-            }
+            numpad_output1.Content += "3";
         }
 
         private void numpad_but_4_Click(object sender, RoutedEventArgs e)
         {
-            if (op_mode != 0)
-            {
-                numpad_output2.Content += "4";
-            }
-            else
-            {
-                numpad_output1.Content += "4";
-            }
+            numpad_output1.Content += "4";
         }
 
         private void numpad_but_5_Click(object sender, RoutedEventArgs e)
         {
-            if (op_mode != 0)
-            {
-                numpad_output2.Content += "5";
-            }
-            else
-            {
-                numpad_output1.Content += "5";
-            }
+            numpad_output1.Content += "5";
         }
 
         private void numpad_but_6_Click(object sender, RoutedEventArgs e)
         {
-            if (op_mode != 0)
-            {
-                numpad_output2.Content += "6";
-            }
-            else
-            {
-                numpad_output1.Content += "6";
-            }
+            numpad_output1.Content += "6";
         }
 
         private void numpad_but_7_Click(object sender, RoutedEventArgs e)
         {
-            if (op_mode != 0)
-            {
-                numpad_output2.Content += "7";
-            }
-            else
-            {
-                numpad_output1.Content += "7";
-            }
+            numpad_output1.Content += "7";
         }
 
         private void numpad_but_8_Click(object sender, RoutedEventArgs e)
         {
-            if (op_mode != 0)
-            {
-                numpad_output2.Content += "8";
-            }
-            else
-            {
-                numpad_output1.Content += "8";
-            }
+            numpad_output1.Content += "8";
         }
 
         private void numpad_but_9_Click(object sender, RoutedEventArgs e)
         {
-            if (op_mode != 0)
-            {
-                numpad_output2.Content += "9";
-            }
-            else
-            {
-                numpad_output1.Content += "9";
-            }
+            numpad_output1.Content += "9";
         }
 
         private void numpad_but_0_Click(object sender, RoutedEventArgs e)
         {
-            if (op_mode != 0)
-            {
-                numpad_output2.Content += "0";
-            }
-            else
-            {
-                numpad_output1.Content += "0";
-            }
+            numpad_output1.Content += "0";
         }
 
         private void numpad_but_ent_Click(object sender, RoutedEventArgs e)
@@ -208,8 +137,8 @@ namespace _202223_bbs_projekt_kasse
                 case 1:
                     {
                         //DIV
-                        numpad_output1.Content = System.Convert.ToInt32(numpad_output1.Content) / System.Convert.ToInt32(numpad_output2.Content);
-                        numpad_output2.Content = null;
+                        
+                        
                         break;
                     }
                     
@@ -220,9 +149,18 @@ namespace _202223_bbs_projekt_kasse
         }
 
         private void checkoutClick(object sender, RoutedEventArgs e)
-        { 
-            checkoutScreen chescr = new checkoutScreen();
-            chescr.ShowDialog();
+        {
+            GLOBALS.currentBon = bon_list.Items;
+            if (GLOBALS.currentBon != null)
+            {
+                checkoutScreen chescr = new checkoutScreen();
+                chescr.ShowDialog();
+            }
+            else
+            { 
+                //Fehlermeldung: Kein Item Gescannt!
+            }
+            
         }
 
         private void numpad_but_clear_Click(object sender, RoutedEventArgs e)
@@ -239,9 +177,18 @@ namespace _202223_bbs_projekt_kasse
             serialPort.Handshake = Handshake.None;
             serialPort.RtsEnable = true;
             serialPort.DtrEnable = true;
-
             serialPort.DataReceived += new SerialDataReceivedEventHandler(OnDataReceived);
-            serialPort.Open();
+            
+            try
+            {
+                serialPort.Open();
+            }
+            catch (Exception)
+            {
+                //Fehlermeldung: Falscher COM Port!
+                throw;
+            }
+            
         }
 
         private void OnDataReceived(object sender, SerialDataReceivedEventArgs e)
@@ -273,15 +220,7 @@ namespace _202223_bbs_projekt_kasse
                     bon_list_sum.Text = Convert.ToString(preis);
                     bon_list_total.Text = Convert.ToString(Math.Round(Convert.ToDouble(bon_list_total.Text) + preis, 3));
                 }));
-                Debug.WriteLine("Produkt gefunden");
-                if (GLOBALS.currentBon == null)
-                {
-                    GLOBALS.currentBon[0] = new Produkt { Barcode = barcode, Hersteller = hersteller, Preis = preis, Name = bezeichnung };
-                }
-                else
-                {
-                    GLOBALS.currentBon.Append(new Produkt { Barcode = barcode, Hersteller = hersteller, Preis = preis, Name = bezeichnung });
-                }
+                Debug.WriteLine("Produkt gefunden");               
             }
             else 
             {
@@ -289,8 +228,7 @@ namespace _202223_bbs_projekt_kasse
                 Debug.WriteLine($"Produktfehler/Nicht in der Datenbank/{connection.State}");
             }
             reader.Close();
-            connection.Close();
-            
+            connection.Close();            
         }
 
         public void Connect_to_SQL() 

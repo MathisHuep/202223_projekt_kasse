@@ -23,11 +23,16 @@ namespace _202223_bbs_projekt_kasse
         public checkoutScreen()
         {
             InitializeComponent();
-            foreach (var item in GLOBALS.currentBon) 
+            foreach (var item in GLOBALS.currentBon)
+            {
+                bon_list.Items.Add(item);
+            }
+            
+            /*foreach (var item in GLOBALS.currentBon) 
             {
                 bon_list.Items.Add(item);
                 bon_list_total.Text = Convert.ToString(Math.Round(Convert.ToDouble(bon_list_total.Text) + item.Preis, 3));
-            }
+            }*/
         }
 
         private void numpad_but_1_Click(object sender, RoutedEventArgs e)

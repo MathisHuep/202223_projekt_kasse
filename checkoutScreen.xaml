@@ -48,7 +48,6 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Label x:Name="numpad_output1" FontSize="30" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="0"/>
-                <Label x:Name="numpad_output2" FontSize="30" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="1"/>
             </Grid>
         </Grid>
         <Grid Grid.Column="0">
