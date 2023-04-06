@@ -13,6 +13,7 @@ namespace _202223_bbs_projekt_kasse
         public static string SQL_USER { get; set; }
         public static string SQL_PASSWORD { get; set; }
         public static string SQL_IP { get; set; }
-        public static string SQL_DB { get; set; }       
+        public static string SQL_DB { get; set; }
+        public static List<Produkt> currentBon { get; set; } 
     }
 }

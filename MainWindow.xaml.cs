@@ -219,6 +219,12 @@ namespace _202223_bbs_projekt_kasse
             op_mode = 0;
         }
 
+        private void checkoutClick(object sender, RoutedEventArgs e)
+        { 
+            checkoutScreen chescr = new checkoutScreen();
+            chescr.ShowDialog();
+        }
+
         private void numpad_but_clear_Click(object sender, RoutedEventArgs e)
         {
             numpad_output1.Content = null;
@@ -268,6 +274,14 @@ namespace _202223_bbs_projekt_kasse
                     bon_list_total.Text = Convert.ToString(Math.Round(Convert.ToDouble(bon_list_total.Text) + preis, 3));
                 }));
                 Debug.WriteLine("Produkt gefunden");
+                if (GLOBALS.currentBon == null)
+                {
+                    GLOBALS.currentBon[0] = new Produkt { Barcode = barcode, Hersteller = hersteller, Preis = preis, Name = bezeichnung };
+                }
+                else
+                {
+                    GLOBALS.currentBon.Append(new Produkt { Barcode = barcode, Hersteller = hersteller, Preis = preis, Name = bezeichnung });
+                }
             }
             else 
             {

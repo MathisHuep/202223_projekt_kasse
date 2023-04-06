@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:_202223_bbs_projekt_kasse"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <Style TargetType="Button">
+        <!--<Style TargetType="Button">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -14,6 +14,6 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-        </Style>
+        </Style> -->
     </Application.Resources>
 </Application>
