@@ -6,12 +6,13 @@
         xmlns:local="clr-namespace:_202223_bbs_projekt_kasse"
         mc:Ignorable="d"
         Title="WindowOptions" MaxHeight="200" MaxWidth="400" MinHeight="200" MinWidth="400">
-    <Grid Margin="30">
+    <Grid Margin="20">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
@@ -34,7 +35,8 @@
         <TextBox x:Name="sqldb" Text="kasse" Grid.Column="1" Grid.Row="3"/>
         <TextBox x:Name="commdisp" Text="" Grid.Column="1" Grid.Row="4"/>
         <TextBox x:Name="commscn" Text="COM4" Grid.Column="1" Grid.Row="5"/>
-        <Button Content="Confirm" HorizontalAlignment="Left" Height="23" Margin="128,-28,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="66" Click="Button_Click"/>
+        
+        <Button Content="Confirm" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="6"  Click="Button_Click"/>
 
     </Grid>
 </Window>

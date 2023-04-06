@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO.Ports;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -199,8 +200,8 @@ namespace _202223_bbs_projekt_kasse
             {
                 case 0:
                     {
-                        //add to list
-                        bon_list.Items.Add(numpad_output1.Content);
+                        //Manuelle EAN eingabe
+                        
                         numpad_output1.Content = null;
                         break;
                     }
@@ -240,8 +241,6 @@ namespace _202223_bbs_projekt_kasse
         private void OnDataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             var serialDevice = sender as SerialPort;
-            //var buffer = new byte[serialDevice.BytesToRead];
-            //serialDevice.Read(buffer, 0, buffer.Length);
             string barcode = serialDevice.ReadLine();
             barcode = barcode.Remove(barcode.Length - 1);
 
@@ -251,7 +250,12 @@ namespace _202223_bbs_projekt_kasse
 
             string sql = $"SELECT Bezeichnung, Preis, Hersteller FROM produkte WHERE EAN = {barcode}";
             MySqlCommand command = new MySqlCommand(sql, connection);
-            connection.Open();
+            if (connection.State == System.Data.ConnectionState.Closed)
+            {
+                connection.Open();
+            }
+            
+            
             MySqlDataReader reader = command.ExecuteReader();
             if(reader.Read())
             {
@@ -263,27 +267,38 @@ namespace _202223_bbs_projekt_kasse
                     bon_list_sum.Text = Convert.ToString(preis);
                     bon_list_total.Text = Convert.ToString(Math.Round(Convert.ToDouble(bon_list_total.Text) + preis, 3));
                 }));
+                Debug.WriteLine("Produkt Gefunden");
             }
             else 
             {
                 //Fehlermeldung no product found (Mathis)
+                Debug.WriteLine($"Produkt fehler/Nicht in Datenbank/{connection.State}");
             }
             reader.Close();
             connection.Close();
+            
         }
 
         public void Connect_to_SQL() 
         {
             string connectionString = $"Server={GLOBALS.SQL_IP};Database={GLOBALS.SQL_DB};Uid={GLOBALS.SQL_USER}";
+            connection = new MySqlConnection(connectionString);
             try
             {
-                connection = new MySqlConnection(connectionString);
+                connection.Open();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw new Exception();
-                return;
+                Debug.WriteLine($"SQL Connection Failed. SQL connection State: {connection.State}");
+                               
+                Application.Current.Dispatcher.Invoke(new Action(() =>
+                {
+                    WindowSQLlogin winsqllog = new WindowSQLlogin();
+                    winsqllog.ShowDialog();
+                }));
+                Connect_to_SQL();
             }
+            Debug.WriteLine("SQL connection successful");
         }
     }
 
