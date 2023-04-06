@@ -93,6 +93,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="changeScreen.xaml.cs">
+      <DependentUpon>changeScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="checkoutScreen.xaml.cs">
       <DependentUpon>checkoutScreen.xaml</DependentUpon>
     </Compile>
@@ -103,6 +106,10 @@
     <Compile Include="WindowSQLlogin.xaml.cs">
       <DependentUpon>WindowSQLlogin.xaml</DependentUpon>
     </Compile>
+    <Page Include="changeScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="checkoutScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
