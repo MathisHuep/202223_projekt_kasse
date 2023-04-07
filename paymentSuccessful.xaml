@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_202223_bbs_projekt_kasse"
         mc:Ignorable="d"
-        Title="paymentSuccessful" Height="auto" Width="Auto">
+        Title="paymentSuccessful" MaxHeight="125" MinHeight="125" MaxWidth="400" MinWidth="400">
     <Grid>
         <StackPanel>
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="35" Text="Zahlung erfolgreich!" Margin="10"/>

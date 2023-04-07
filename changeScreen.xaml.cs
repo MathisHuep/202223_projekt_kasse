@@ -20,14 +20,18 @@ namespace _202223_bbs_projekt_kasse
     /// </summary>
     public partial class changeScreen : Window
     {
-        public changeScreen()
+        public changeScreen(double mustBePaid, double Paid)
         {
             InitializeComponent();
+            double changeAmount = Paid - mustBePaid;
+            change.Text = Convert.ToString(changeAmount);
+            cash_given.Text =Convert.ToString(Paid);
+            bon_list_total.Text = Convert.ToString(mustBePaid);
         }
 
         private void confirmChangeClick(object sender, RoutedEventArgs e)
         {
-
+            this.Close();
         }
     }
 }
