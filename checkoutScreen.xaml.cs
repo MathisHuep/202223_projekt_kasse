@@ -117,16 +117,15 @@ namespace _202223_bbs_projekt_kasse
             if (numpad_output1.Content == null)
             {
 
-                changeScreen chascr = new changeScreen();
-                chascr.ShowDialog();
+                paymentSuccessful paymsuc = new paymentSuccessful();
+                paymsuc.Show();
             }
             else
             {
-                //changeScreen chascr = new changeScreen();
-                //chascr.ShowDialog();
+                changeScreen chascr = new changeScreen();
+                chascr.ShowDialog();
             }
-            paymentSuccessful paymsuc = new paymentSuccessful();
-            paymsuc.Show();
+
         }
     }
 }

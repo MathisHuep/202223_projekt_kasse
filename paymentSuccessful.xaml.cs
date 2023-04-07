@@ -26,5 +26,10 @@ namespace _202223_bbs_projekt_kasse
             Task.Delay(2000);
             this.Close();
         }
+
+        private void confirm_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }
