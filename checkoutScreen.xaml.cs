@@ -112,19 +112,21 @@ namespace _202223_bbs_projekt_kasse
             
         }
 
-        private async void cash_Click(object sender, RoutedEventArgs e)
+        private void cash_Click(object sender, RoutedEventArgs e)
         {
-            if(numpad_output1.Content == null)
+            if (numpad_output1.Content == null)
             {
-                paymentSuccessful paymSuc = new paymentSuccessful();
-                paymSuc.ShowDialog();
-                this.Close();
-            }
-            else
-            {
+
                 changeScreen chascr = new changeScreen();
                 chascr.ShowDialog();
             }
+            else
+            {
+                //changeScreen chascr = new changeScreen();
+                //chascr.ShowDialog();
+            }
+            paymentSuccessful paymsuc = new paymentSuccessful();
+            paymsuc.Show();
         }
     }
 }

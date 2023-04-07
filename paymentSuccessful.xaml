@@ -5,8 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_202223_bbs_projekt_kasse"
         mc:Ignorable="d"
-        Title="paymentSuccessful" Height="200" Width="400">
+        Title="paymentSuccessful" Height="auto" Width="Auto">
     <Grid>
-        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="35" Text="Zahlung erfolgreich!"/>
+        <StackPanel>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="35" Text="Zahlung erfolgreich!" Margin="10"/>
+            <Button x:Name="confirm" Content="Bestätigen" Click="confirm_Click" />
+        </StackPanel>
+        
+        
     </Grid>
 </Window>

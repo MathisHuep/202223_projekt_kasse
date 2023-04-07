@@ -23,7 +23,7 @@ namespace _202223_bbs_projekt_kasse
         public paymentSuccessful()
         {
             InitializeComponent();
-            Thread.Sleep(2000);
+            Task.Delay(2000);
             this.Close();
         }
     }
