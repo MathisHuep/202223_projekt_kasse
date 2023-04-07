@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Windows.Controls;
 using System.Xml.Schema;
+using System.IO.Ports;
 
 namespace _202223_bbs_projekt_kasse
 {
@@ -19,5 +20,8 @@ namespace _202223_bbs_projekt_kasse
         public static string SQL_DB { get; set; }
         public static ItemCollection currentBon { get; set; } 
         public static double Total { get; set; }
+        public static SerialPort SPScan { get; set; }
+        public static SerialPort SPDisp { get; set; }
+
     }
 }

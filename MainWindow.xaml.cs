@@ -35,7 +35,8 @@ namespace _202223_bbs_projekt_kasse
     {
         public string comm_port = GLOBALS.COMM_PORT_SCN;
         public int op_mode = 0;
-        SerialPort serialPort = null;
+        SerialPort SPScan = GLOBALS.SPScan;
+        SerialPort SPDisp = GLOBALS.SPDisp;
         public MySqlConnection connection = null;
 
         public MainWindow()
@@ -47,10 +48,12 @@ namespace _202223_bbs_projekt_kasse
             WindowOptions WinOpt = new WindowOptions();
             WinOpt.ShowDialog();
 
-            Thread scanning = new Thread(MyCommPort);
+            Thread scanning = new Thread(scannerInput);
             Thread SQlquery = new Thread(Connect_to_SQL);
+            Thread output = new Thread(displayOutput);
             SQlquery.Start();
             scanning.Start();
+            output.Start();
 
 
 
@@ -135,6 +138,11 @@ namespace _202223_bbs_projekt_kasse
         {
             GLOBALS.currentBon = bon_list.Items;
             GLOBALS.Total = Convert.ToDouble(bon_list_total.Text);
+            SPDisp.Write("\x1B[2J");
+            SPDisp.Write("\x1B[1;1H");
+            SPDisp.Write("TOTAL");
+            SPDisp.Write($"\x1B[2;{20 - (Convert.ToString(GLOBALS.Total).Length - 1)}H");
+            SPDisp.Write(Convert.ToString(GLOBALS.Total));
             if (bon_list.Items.Count != 0)
             { 
                 checkoutScreen chescr = new checkoutScreen();
@@ -151,21 +159,21 @@ namespace _202223_bbs_projekt_kasse
         {
             numpad_output1.Content = null;
         }
-        public void MyCommPort()
+        public void scannerInput()
         {
-            serialPort = new SerialPort(GLOBALS.COMM_PORT_SCN);
-            serialPort.BaudRate = 9600;
-            serialPort.Parity = Parity.Odd;
-            serialPort.StopBits = StopBits.One;
-            serialPort.DataBits = 8;
-            serialPort.Handshake = Handshake.None;
-            serialPort.RtsEnable = true;
-            serialPort.DtrEnable = true;
-            serialPort.DataReceived += new SerialDataReceivedEventHandler(OnDataReceived);
+            SPScan = new SerialPort(GLOBALS.COMM_PORT_SCN);
+            SPScan.BaudRate = 9600;
+            SPScan.Parity = Parity.Odd;
+            SPScan.StopBits = StopBits.One;
+            SPScan.DataBits = 8;
+            SPScan.Handshake = Handshake.None;
+            SPScan.RtsEnable = true;
+            SPScan.DtrEnable = true;
+            SPScan.DataReceived += new SerialDataReceivedEventHandler(OnDataReceived);
             
             try
             {
-                serialPort.Open();
+                //SPScan.Open();
             }
             catch (Exception)
             {
@@ -173,6 +181,39 @@ namespace _202223_bbs_projekt_kasse
                 throw;
             }
             
+        }
+
+        public void displayOutput()
+        {
+            SPDisp = new SerialPort (GLOBALS.COMM_PORT_DISP);
+            SPDisp.BaudRate = 9600;
+            SPDisp.Parity = Parity.Odd;
+            SPDisp.StopBits = StopBits.One;
+            SPDisp.DataBits = 8;
+            SPDisp.Handshake = Handshake.None;
+            SPDisp.RtsEnable = true;
+            SPDisp.DtrEnable = true;
+
+            try
+            {
+                SPDisp.Open();
+            }
+            catch (Exception)
+            {
+                //Fehlermeldung: Falscher COM Port!
+                throw;
+            }
+            SPDisp.Write("\x1BR02");
+            SPDisp.Write("\x1B[0c");
+        }
+
+        public void displayOnDisplay(string produktName, float Preis)
+        {
+            SPDisp.Write("\x1B[2J");
+            SPDisp.Write("\x1B[1;1H");
+            SPDisp.Write(produktName);
+            SPDisp.Write($"\x1B[2;{20 - (Convert.ToString(Preis).Length - 1)}H");
+            SPDisp.Write(Convert.ToString(Preis));
         }
 
         private void OnDataReceived(object sender, SerialDataReceivedEventArgs e)
@@ -204,6 +245,7 @@ namespace _202223_bbs_projekt_kasse
                     bon_list_sum.Text = Convert.ToString(preis);
                     bon_list_total.Text = Convert.ToString(Math.Round(Convert.ToDouble(bon_list_total.Text) + preis, 3));
                 }));
+                displayOnDisplay(bezeichnung, preis);
                 Debug.WriteLine("Produkt gefunden");               
             }
             else 
@@ -266,6 +308,7 @@ namespace _202223_bbs_projekt_kasse
                         bon_list_sum.Text = Convert.ToString(preis);
                         bon_list_total.Text = Convert.ToString(Math.Round(Convert.ToDouble(bon_list_total.Text) + preis, 3));
                     }));
+                    displayOnDisplay(bezeichnung, preis);
                     Debug.WriteLine("Produkt gefunden");
                 }
                 else

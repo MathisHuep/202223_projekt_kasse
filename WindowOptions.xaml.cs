@@ -35,5 +35,10 @@ namespace _202223_bbs_projekt_kasse
             GLOBALS.COMM_PORT_SCN = commscn.Text;
             this.Close();
         }
+
+        private void commdisp_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

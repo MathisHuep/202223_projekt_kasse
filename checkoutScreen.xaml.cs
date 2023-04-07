@@ -120,12 +120,14 @@ namespace _202223_bbs_projekt_kasse
                 paymentSuccessful paymsuc = new paymentSuccessful();
                 paymsuc.Show();
                 this.Close();
+                GLOBALS.SPDisp.Write("\x1B[2J");
             }
             else
             {
                 changeScreen chascr = new changeScreen(Convert.ToDouble(bon_list_total.Text), Convert.ToDouble(numpad_output1.Content));
                 chascr.ShowDialog();
                 this.Close();
+                GLOBALS.SPDisp.Write("\x1B[2J");
             }
 
         }
