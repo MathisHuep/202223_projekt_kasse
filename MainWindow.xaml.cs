@@ -142,7 +142,8 @@ namespace _202223_bbs_projekt_kasse
             SPDisp.Write("\x1B[1;1H");
             SPDisp.Write("TOTAL");
             SPDisp.Write($"\x1B[2;{20 - (Convert.ToString(GLOBALS.Total).Length - 1)}H");
-            SPDisp.Write(Convert.ToString(GLOBALS.Total));
+            SPDisp.Write(Convert.ToString(Math.Round(GLOBALS.Total, 3)));
+            SPDisp.Close();
             if (bon_list.Items.Count != 0)
             { 
                 checkoutScreen chescr = new checkoutScreen();
@@ -209,11 +210,20 @@ namespace _202223_bbs_projekt_kasse
 
         public void displayOnDisplay(string produktName, float Preis)
         {
+            if(SPDisp.IsOpen == false)
+            {
+                SPDisp.Open();
+            }
             SPDisp.Write("\x1B[2J");
             SPDisp.Write("\x1B[1;1H");
             SPDisp.Write(produktName);
-            SPDisp.Write($"\x1B[2;{20 - (Convert.ToString(Preis).Length - 1)}H");
-            SPDisp.Write(Convert.ToString(Preis));
+            string preisFormatted = Preis.ToString("F2");
+            int preisPosition = 20 - preisFormatted.Length - 1;
+            SPDisp.Write($"\x1B[2;{preisPosition}H");
+            SPDisp.Write(preisFormatted);
+            
+            //SPDisp.Write($"\x1B[2;{20 - (Convert.ToString(Preis).Length - 1)}H");
+            //SPDisp.Write(Convert.ToString(Preis));
         }
 
         private void OnDataReceived(object sender, SerialDataReceivedEventArgs e)
@@ -306,7 +316,10 @@ namespace _202223_bbs_projekt_kasse
                     Application.Current.Dispatcher.Invoke(new Action(() => {
                         bon_list.Items.Add(new Produkt { Barcode = barcode, Hersteller = hersteller, Preis = preis, Name = bezeichnung });
                         bon_list_sum.Text = Convert.ToString(preis);
-                        bon_list_total.Text = Convert.ToString(Math.Round(Convert.ToDouble(bon_list_total.Text) + preis, 3));
+                        double gesamtBetrag = Convert.ToDouble(bon_list_total.Text);
+                        gesamtBetrag += preis;
+                        bon_list_total.Text = gesamtBetrag.ToString("F2");
+                        //bon_list_total.Text = Convert.ToString((Convert.ToDouble(bon_list_total.Text) + preis));
                     }));
                     displayOnDisplay(bezeichnung, preis);
                     Debug.WriteLine("Produkt gefunden");

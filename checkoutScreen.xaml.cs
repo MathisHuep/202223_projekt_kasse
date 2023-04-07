@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Threading;
 using System.Windows.Controls.Primitives;
+using System.IO.Ports;
 
 namespace _202223_bbs_projekt_kasse
 {
@@ -22,10 +23,14 @@ namespace _202223_bbs_projekt_kasse
     /// </summary>
     public partial class checkoutScreen : Window
     {
+        public SerialPort SPDisp = GLOBALS.SPDisp;
+
         public checkoutScreen()
         {
             InitializeComponent();
-            bon_list_total.Text = Convert.ToString(GLOBALS.Total);
+            Thread Display = new Thread(displayOutput);
+            Display.Start();
+            bon_list_total.Text = GLOBALS.Total.ToString("F2");
             foreach (var item in GLOBALS.currentBon)
             {
                 bon_list.Items.Add(item);
@@ -36,6 +41,28 @@ namespace _202223_bbs_projekt_kasse
                 bon_list.Items.Add(item);
                 bon_list_total.Text = Convert.ToString(Math.Round(Convert.ToDouble(bon_list_total.Text) + item.Preis, 3));
             }*/
+        }
+
+        public void displayOutput()
+        {
+            SPDisp = new SerialPort(GLOBALS.COMM_PORT_DISP);
+            SPDisp.BaudRate = 9600;
+            SPDisp.Parity = Parity.Odd;
+            SPDisp.StopBits = StopBits.One;
+            SPDisp.DataBits = 8;
+            SPDisp.Handshake = Handshake.None;
+            SPDisp.RtsEnable = true;
+            SPDisp.DtrEnable = true;
+
+            try
+            {
+                SPDisp.Open();
+            }
+            catch (Exception)
+            {
+                //Fehlermeldung: Falscher COM Port!
+                throw;
+            }
         }
 
         private void numpad_but_1_Click(object sender, RoutedEventArgs e)
@@ -120,16 +147,15 @@ namespace _202223_bbs_projekt_kasse
                 paymentSuccessful paymsuc = new paymentSuccessful();
                 paymsuc.Show();
                 this.Close();
-                GLOBALS.SPDisp.Write("\x1B[2J");
             }
             else
             {
                 changeScreen chascr = new changeScreen(Convert.ToDouble(bon_list_total.Text), Convert.ToDouble(numpad_output1.Content));
                 chascr.ShowDialog();
                 this.Close();
-                GLOBALS.SPDisp.Write("\x1B[2J");
             }
-
+            SPDisp.Write("\x1B[2J");
+            SPDisp.Close();
         }
     }
 }

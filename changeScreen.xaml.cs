@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Globalization;
 
 namespace _202223_bbs_projekt_kasse
 {
@@ -24,7 +25,8 @@ namespace _202223_bbs_projekt_kasse
         {
             InitializeComponent();
             double changeAmount = Paid - mustBePaid;
-            change.Text = Convert.ToString(changeAmount);
+            change.Text = Convert.ToString(Math.Round(changeAmount, 3));
+            //NumberFormatInfo setPrecision = new NumberFormatInfo
             cash_given.Text =Convert.ToString(Paid);
             bon_list_total.Text = Convert.ToString(mustBePaid);
         }
