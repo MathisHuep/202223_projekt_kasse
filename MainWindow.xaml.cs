@@ -236,6 +236,47 @@ namespace _202223_bbs_projekt_kasse
             }
             Debug.WriteLine("SQL connection successful");
         }
+
+        private void manualEANsubmit_Click(object sender, RoutedEventArgs e)
+        {
+            string barcode = manualEAN.Text;
+
+            string bezeichnung;
+            float preis;
+            string hersteller;
+            string sql = $"SELECT Bezeichnung, Preis, Hersteller FROM produkte WHERE EAN = {barcode}";
+            MySqlCommand command = new MySqlCommand(sql, connection);
+            if (connection.State == System.Data.ConnectionState.Closed)
+            {
+                connection.Open();
+            }
+
+            MySqlDataReader reader = command.ExecuteReader();
+            
+            if (manualEAN.Text != null)
+            {
+
+                if (reader.Read())
+                {
+                    bezeichnung = reader.GetString("Bezeichnung");
+                    preis = reader.GetFloat("Preis");
+                    hersteller = reader.GetString("Hersteller");
+                    Application.Current.Dispatcher.Invoke(new Action(() => {
+                        bon_list.Items.Add(new Produkt { Barcode = barcode, Hersteller = hersteller, Preis = preis, Name = bezeichnung });
+                        bon_list_sum.Text = Convert.ToString(preis);
+                        bon_list_total.Text = Convert.ToString(Math.Round(Convert.ToDouble(bon_list_total.Text) + preis, 3));
+                    }));
+                    Debug.WriteLine("Produkt gefunden");
+                }
+                else
+                {
+                    //Fehlermeldung no product found (Mathis)
+                    Debug.WriteLine($"Produktfehler/Nicht in der Datenbank/{connection.State}");
+                }
+                reader.Close();
+                connection.Close();
+            }
+        }
     }
 
     public class Produkt

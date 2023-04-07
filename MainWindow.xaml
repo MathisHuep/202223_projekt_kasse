@@ -68,6 +68,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -77,6 +78,8 @@
                 <TextBlock Text="TOTAL: " HorizontalAlignment="Right" Grid.Column="0" Grid.Row="1" FontSize="30" TextAlignment="Center"/>
                 <TextBlock x:Name="bon_list_sum" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" TextAlignment="Center" FontSize="30"/>
                 <TextBlock x:Name="bon_list_total" Grid.Column="1" Grid.Row="1" HorizontalAlignment="left" TextAlignment="Center" FontSize="30"/>
+                <TextBox x:Name="manualEAN" Grid.Row="2"/>
+                <Button x:Name="manualEANsubmit" Content="Submit" Grid.Row="2" Grid.Column="1" Click="manualEANsubmit_Click"/>
             </Grid>
         </Grid>
         <Grid Grid.Column="2">
