@@ -83,8 +83,7 @@
             <Button x:Name="Backspace" Content="C" FontFamily="Arial" FontSize="25" FontWeight="Bold" Grid.Row="0" Click="Backspace_Click"/>
             <Button x:Name="cancel" Background="#df5555" Content="Abbrechen" FontSize="35" FontFamily="Calibri"  FontWeight="Bold" Grid.Row="1" Click="cancel_Click"/>
             <Button x:Name="ecash" Content="Kartenzahlung" FontSize="35" FontFamily="Calibri" Grid.Row="2"/>
-            <Button x:Name="cash" Background="#ffd966" Content="Bar" FontSize="35" FontFamily="Calibri" Grid.Row="3"/>
+            <Button x:Name="cash" Background="#ffd966" Content="Bar" FontSize="35" FontFamily="Calibri" Grid.Row="3" Click="cash_Click"/>
         </Grid>
-        
     </Grid>
 </Window>

@@ -12,6 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Threading;
+using System.Windows.Controls.Primitives;
 
 namespace _202223_bbs_projekt_kasse
 {
@@ -108,6 +110,21 @@ namespace _202223_bbs_projekt_kasse
                 numpad_output1.Content = numpad_output1.Content.ToString().Remove(numpad_output1.Content.ToString().Length - 1);
             }
             
+        }
+
+        private async void cash_Click(object sender, RoutedEventArgs e)
+        {
+            if(numpad_output1.Content == null)
+            {
+                paymentSuccessful paymSuc = new paymentSuccessful();
+                paymSuc.ShowDialog();
+                this.Close();
+            }
+            else
+            {
+                changeScreen chascr = new changeScreen();
+                chascr.ShowDialog();
+            }
         }
     }
 }

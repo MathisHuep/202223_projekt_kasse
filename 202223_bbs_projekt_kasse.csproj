@@ -100,6 +100,9 @@
       <DependentUpon>checkoutScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="GLOBALS.cs" />
+    <Compile Include="paymentSuccessful.xaml.cs">
+      <DependentUpon>paymentSuccessful.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WindowOptions.xaml.cs">
       <DependentUpon>WindowOptions.xaml</DependentUpon>
     </Compile>
@@ -126,6 +129,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="paymentSuccessful.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="WindowOptions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -135,8 +135,8 @@ namespace _202223_bbs_projekt_kasse
         {
             GLOBALS.currentBon = bon_list.Items;
             GLOBALS.Total = Convert.ToDouble(bon_list_total.Text);
-            if (GLOBALS.currentBon != null)
-            {
+            if (bon_list.Items.Count != 0)
+            { 
                 checkoutScreen chescr = new checkoutScreen();
                 chescr.ShowDialog();
             }
