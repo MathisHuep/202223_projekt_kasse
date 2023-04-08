@@ -141,8 +141,9 @@ namespace _202223_bbs_projekt_kasse
             SPDisp.Write("\x1B[2J");
             SPDisp.Write("\x1B[1;1H");
             SPDisp.Write("TOTAL");
-            SPDisp.Write($"\x1B[2;{20 - (Convert.ToString(GLOBALS.Total).Length - 1)}H");
+            SPDisp.Write($"\x1B[2;{20 - (Convert.ToString(GLOBALS.Total).Length + 3)}H");
             SPDisp.Write(Convert.ToString(Math.Round(GLOBALS.Total, 3)));
+            SPDisp.Write(" EUR");
             SPDisp.Close();
             if (bon_list.Items.Count != 0)
             { 
@@ -216,14 +217,10 @@ namespace _202223_bbs_projekt_kasse
             }
             SPDisp.Write("\x1B[2J");
             SPDisp.Write("\x1B[1;1H");
-            SPDisp.Write(produktName);
-            string preisFormatted = Preis.ToString("F2");
-            int preisPosition = 20 - preisFormatted.Length - 1;
-            SPDisp.Write($"\x1B[2;{preisPosition}H");
-            SPDisp.Write(preisFormatted);
-            
-            //SPDisp.Write($"\x1B[2;{20 - (Convert.ToString(Preis).Length - 1)}H");
-            //SPDisp.Write(Convert.ToString(Preis));
+            SPDisp.Write(produktName); 
+            SPDisp.Write($"\x1B[2;{20 - (Convert.ToString(Preis).Length + 3)}H");
+            SPDisp.Write(Convert.ToString(Preis));
+            SPDisp.Write(" EUR");
         }
 
         private void OnDataReceived(object sender, SerialDataReceivedEventArgs e)
