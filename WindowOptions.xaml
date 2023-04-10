@@ -33,7 +33,7 @@
         <TextBox x:Name="sqluser" Text="root" Grid.Column="1" Grid.Row="1"/>
         <PasswordBox x:Name="sqlpass" Grid.Column="1" Grid.Row="2"/>
         <TextBox x:Name="sqldb" Text="kasse" Grid.Column="1" Grid.Row="3"/>
-        <TextBox x:Name="commdisp" Text="COM5" Grid.Column="1" Grid.Row="4" TextChanged="commdisp_TextChanged"/>
+        <TextBox x:Name="commdisp" Text="COM5" Grid.Column="1" Grid.Row="4"/>
         <TextBox x:Name="commscn" Text="COM4" Grid.Column="1" Grid.Row="5"/>
         
         <Button Content="Confirm" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="6"  Click="Button_Click"/>
