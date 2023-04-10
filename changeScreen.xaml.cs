@@ -25,20 +25,20 @@ namespace _202223_bbs_projekt_kasse
         public changeScreen(double mustBePaid, double Paid)
         {
             InitializeComponent();
-            //Berechnung des Rückgelds
+            //Berechnung des Rückgeldes
             double changeAmount = Paid - mustBePaid;
-            //Anzeige VOn Rückgeld in TextBlock Change
+            //Anzeige von Rückgeld in TextBlock Change
             change.Text = Convert.ToString(Math.Round(changeAmount, 3));
-            //Anzeige von gegebenen Geld in TextBlock cash_given
+            //Anzeige von gegebenem Geld in TextBlock cash_given
             cash_given.Text =Convert.ToString(Paid);
-            //Anzeige des Zu begleichenden Betrags in TextBlock bon_list_total
+            //Anzeige des zu begleichenden Betrags in TextBlock bon_list_total
             bon_list_total.Text = Convert.ToString(mustBePaid);
         }
 
         //Funktionalität Fertig Knopf 
         private void confirmChangeClick(object sender, RoutedEventArgs e)
         {
-            //changeScreen wird Geschlossen
+            //changeScreen wird geschlossen
             this.Close();
         }
     }
