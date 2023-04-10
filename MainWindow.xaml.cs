@@ -34,7 +34,7 @@ namespace _202223_bbs_projekt_kasse
     public partial class MainWindow : Window
     {
         //Annahme von globalen Variabeln
-        public string comm_port = GLOBALS.COMM_PORT_SCN;
+        public string comm_port = GLOBALS.COM_PORT_SCN;
         SerialPort SPScan = GLOBALS.SPScan;
         SerialPort SPDisp = GLOBALS.SPDisp;
         //Initalisierung der SQL Verbindung, vorerst mit null
@@ -171,7 +171,7 @@ namespace _202223_bbs_projekt_kasse
         //Erstellen und Konfigurieren von serieller Schnittstelle vom Scanner
         public void scannerInput()
         {
-            SPScan = new SerialPort(GLOBALS.COMM_PORT_SCN);
+            SPScan = new SerialPort(GLOBALS.COM_PORT_SCN);
             SPScan.BaudRate = 9600;
             SPScan.Parity = Parity.Odd;
             SPScan.StopBits = StopBits.One;
@@ -198,7 +198,7 @@ namespace _202223_bbs_projekt_kasse
         public void displayOutput()
         {
             //Konfiguration vom seriellen Port
-            SPDisp = new SerialPort (GLOBALS.COMM_PORT_DISP);
+            SPDisp = new SerialPort (GLOBALS.COM_PORT_DISP);
             SPDisp.BaudRate = 9600;
             SPDisp.Parity = Parity.Odd;
             SPDisp.StopBits = StopBits.One;

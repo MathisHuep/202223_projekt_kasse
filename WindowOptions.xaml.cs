@@ -32,8 +32,8 @@ namespace _202223_bbs_projekt_kasse
             GLOBALS.SQL_USER = sqluser.Text;
             GLOBALS.SQL_PASSWORD = sqlpass.Password;
             GLOBALS.SQL_DB = sqldb.Text;
-            GLOBALS.COMM_PORT_DISP = commdisp.Text;
-            GLOBALS.COMM_PORT_SCN = commscn.Text;
+            GLOBALS.COM_PORT_DISP = commdisp.Text;
+            GLOBALS.COM_PORT_SCN = commscn.Text;
             this.Close();
         }
     }

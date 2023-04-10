@@ -45,7 +45,7 @@ namespace _202223_bbs_projekt_kasse
         public void displayOutput()
         {
             //Konfiguration COM Port
-            SPDisp = new SerialPort(GLOBALS.COMM_PORT_DISP);
+            SPDisp = new SerialPort(GLOBALS.COM_PORT_DISP);
             SPDisp.BaudRate = 9600;
             SPDisp.Parity = Parity.Odd;
             SPDisp.StopBits = StopBits.One;
