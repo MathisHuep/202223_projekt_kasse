@@ -18,21 +18,27 @@ namespace _202223_bbs_projekt_kasse
 {
     /// <summary>
     /// Interaction logic for changeScreen.xaml
+    /// Fenster zur Bestimmung und Anzeige für Wechselgeld 
     /// </summary>
     public partial class changeScreen : Window
     {
         public changeScreen(double mustBePaid, double Paid)
         {
             InitializeComponent();
+            //Berechnung des Rückgelds
             double changeAmount = Paid - mustBePaid;
+            //Anzeige VOn Rückgeld in TextBlock Change
             change.Text = Convert.ToString(Math.Round(changeAmount, 3));
-            //NumberFormatInfo setPrecision = new NumberFormatInfo
+            //Anzeige von gegebenen Geld in TextBlock cash_given
             cash_given.Text =Convert.ToString(Paid);
+            //Anzeige des Zu begleichenden Betrags in TextBlock bon_list_total
             bon_list_total.Text = Convert.ToString(mustBePaid);
         }
 
+        //Funktionalität Fertig Knopf 
         private void confirmChangeClick(object sender, RoutedEventArgs e)
         {
+            //changeScreen wird Geschlossen
             this.Close();
         }
     }
