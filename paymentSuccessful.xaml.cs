@@ -17,6 +17,7 @@ namespace _202223_bbs_projekt_kasse
 {
     /// <summary>
     /// Interaction logic for paymentSuccessful.xaml
+    /// Fenster zur Anzeige, dass Bezahl Prozess Abgeschlossen ist
     /// </summary>
     public partial class paymentSuccessful : Window
     {
@@ -25,8 +26,10 @@ namespace _202223_bbs_projekt_kasse
             InitializeComponent();
         }
 
+        //Funktionalität Bestätigen Knopf
         private void confirm_Click(object sender, RoutedEventArgs e)
         {
+            //paymentSuccessful wird geschlossen
             this.Close();
         }
     }
