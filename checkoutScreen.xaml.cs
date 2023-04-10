@@ -20,20 +20,20 @@ namespace _202223_bbs_projekt_kasse
 {
     /// <summary>
     /// Interaction logic for checkoutScreen.xaml
-    /// Bestimmung von Zahlungs Methode und ggf eingabe von gegebenem Geld zur späteren Bestimmung des Rückgeldes 
+    /// Bestimmung von Zahlungsmethode und ggf Eingabe von gegebenem Geld zur späteren Bestimmung des Rückgeldes 
     /// </summary>
     public partial class checkoutScreen : Window
     {
-        //Annahme von Serial Port
+        //Annahme vom Serial Port
         public SerialPort SPDisp = GLOBALS.SPDisp;
 
         public checkoutScreen()
         {
             InitializeComponent();
-            //Erstellen und starten von Display Prozess
+            //Erstellen und Starten vom Display-Prozess
             Thread Display = new Thread(displayOutput);
             Display.Start();
-            //????
+            // Total wird auf 2 Nachkommastellen gerundet als String in bon_list_total geschrieben
             bon_list_total.Text = GLOBALS.Total.ToString("F2");
             //Übernahme der Produkte des Bons
             foreach (var item in GLOBALS.currentBon)
@@ -54,7 +54,7 @@ namespace _202223_bbs_projekt_kasse
             SPDisp.RtsEnable = true;
             SPDisp.DtrEnable = true;
 
-            //Versuch verbindungsaufbau
+            //Versuchter Verbindungsaufbau
             try
             {
                 SPDisp.Open();
@@ -67,7 +67,7 @@ namespace _202223_bbs_projekt_kasse
         }
 
         //Nachfolgend bis numpad_but_double0_Click
-        //Tasten Funktionalität des Tastenfelds
+        //Funktionalität des Tastenfelds
         //Tasten fügen zu oberem Textfeld korrespondierende Zahlen hinzu 
         private void numpad_but_1_Click(object sender, RoutedEventArgs e)
         {
@@ -150,7 +150,7 @@ namespace _202223_bbs_projekt_kasse
         //Funktionalität "Bar" Knopf
         private void cash_Click(object sender, RoutedEventArgs e)
         {
-            //Überprüfung ob ein gegebene Geld Summe eingegeneb wurde, wenn nicht annahme, dass Passen bezahlt wurde 
+            //Überprüfen, ob eine gegebene Summe eingegeben wurde, wenn nicht, dann Annahme, dass passend bezahlt wurde 
             if (numpad_output1.Content == null)
             {
                 //Erstellung paymentSuccessful
@@ -162,16 +162,16 @@ namespace _202223_bbs_projekt_kasse
             }
             else
             {
-                //changeScreen wir mit zu übergebenden Werten erstellt
+                //changeScreen wird mit zu übergebenden Werten erstellt
                 changeScreen chascr = new changeScreen(Convert.ToDouble(bon_list_total.Text), Convert.ToDouble(numpad_output1.Content));
                 //changeScreen wird als Dialog angezeigt
                 chascr.ShowDialog();
                 //checkoutScreen wird geschlossen
                 this.Close();
             }
-            //Kunden Display wird geleert
+            //Kundendisplay wird geleert
             SPDisp.Write("\x1B[2J");
-            //Serielle verbindung wird geschlossen
+            //Serielle Verbindung wird geschlossen
             SPDisp.Close();
         }
     }
