@@ -33,21 +33,21 @@ namespace _202223_bbs_projekt_kasse
     
     public partial class MainWindow : Window
     {
-        //Annahme von Globale Variabeln
+        //Annahme von globalen Variabeln
         public string comm_port = GLOBALS.COMM_PORT_SCN;
         SerialPort SPScan = GLOBALS.SPScan;
         SerialPort SPDisp = GLOBALS.SPDisp;
-        //Inizelisierung SQL Verbindung, vorerst mit null
+        //Initalisierung der SQL Verbindung, vorerst mit null
         public MySqlConnection connection = null;
 
         public MainWindow()
         {
             InitializeComponent();
-            //Setzung der Textfelde Bon_list_sum und bon_list_total auf 0
+            //Setzen der Textfelder bon_list_sum und bon_list_total auf 0
             bon_list_sum.Text = "0.00";
             bon_list_total.Text = "0.00";
 
-            //Öffnung des Fenster für Inizeille einstellungen
+            //Öffnung des Fensters für initiale Einstellungen
             WindowOptions WinOpt = new WindowOptions();
             WinOpt.ShowDialog();
 
@@ -64,7 +64,7 @@ namespace _202223_bbs_projekt_kasse
         }
 
         //Nachfolgend bis numpad_but_0_Click
-        //Tasten Funktionalität des Tastenfelds
+        //Funktionalität der Tasten des Numpads
         //Tasten fügen zu oberem Textfeld korrespondierende Zahlen hinzu
         
         private void numpad_but_1_Click(object sender, RoutedEventArgs e)
@@ -124,30 +124,30 @@ namespace _202223_bbs_projekt_kasse
         }
 
 
-        //Funktionalität checkout Butten
+        //Funktionalität Checkout-Button
         private void checkoutClick(object sender, RoutedEventArgs e)
         {
             
             if (bon_list.Items.Count != 0)
             { 
-                //Inhalt Bon_list wird an Globale Variable übegeben zur Wiedeverwendung
+                //Inhalt von bon_list wird zur Wiederverwendung an globale Variable übergeben
                 GLOBALS.currentBon = bon_list.Items;
-                //^^ gleiches mit Total Wert
+                //gleiches mit Total-Wert
                 GLOBALS.Total = Convert.ToDouble(bon_list_total.Text);
-                //Display wird Gelöscht
+                //Inhalt des Displays wird gelöscht
                 SPDisp.Write("\x1B[2J");
-                //Curser wird Positioniert [{Py};{Px}H
+                //Cursor wird positioniert [{Py};{Px}H
                 SPDisp.Write("\x1B[1;1H");
-                //Total wird anstlle auf Display ausgegebn
+                //Total wird an der ersten Stelle auf dem Display ausgegeben
                 SPDisp.Write("TOTAL");
-                //Da Preis "Unten rechts" auf Display positioniert werden soll muss Preis länge bestimmt werden um Curser passend zu setztn [{Py};{Px}H
+                //Da Preis "unten rechts" auf dem Display positioniert werden soll, muss die Länge vom Preis bestimmt werden, um Cursor passend zu setzen [{Py};{Px}H
                 //+3 damit Währung angezeigt werden kann
                 SPDisp.Write($"\x1B[2;{20 - (Convert.ToString(GLOBALS.Total).Length + 3)}H");
-                //Preis wird Ausgegeben
+                //Preis wird ausgegeben
                 SPDisp.Write(Convert.ToString(Math.Round(GLOBALS.Total, 3)));
                 //Ausgabe Währung 
                 SPDisp.Write(" EUR");
-                //Serielle verbindung zu Display wird geschlossen
+                //Serielle Verbindung zum Display wird geschlossen
                 SPDisp.Close();
                 //checkoutScreen wird erstellt
                 checkoutScreen chescr = new checkoutScreen();
@@ -161,14 +161,14 @@ namespace _202223_bbs_projekt_kasse
             
         }
 
-        //Funktionalität "C" Butten
-        //Leert den Inhalt von Output Feld (numpad_output1)
+        //Funktionalität "C" Button
+        //Leert den Inhalt vom Output Feld (numpad_output1)
         private void numpad_but_clear_Click(object sender, RoutedEventArgs e)
         {
             numpad_output1.Content = null;
         }
 
-        //Erstellung und Configuration von Serieller Schnittstelle von Scanner
+        //Erstellen und Konfigurieren von serieller Schnittstelle vom Scanner
         public void scannerInput()
         {
             SPScan = new SerialPort(GLOBALS.COMM_PORT_SCN);
@@ -183,7 +183,7 @@ namespace _202223_bbs_projekt_kasse
             
             try
             {
-                //öffnen der Schnitstelle 
+                //Öffnen der Schnittstelle 
                 SPScan.Open();
             }
             catch (Exception)
@@ -194,10 +194,10 @@ namespace _202223_bbs_projekt_kasse
             
         }
 
-        //Erstellung und Configuration von Serieller Schnittstelle von Display 
+        //Erstellen und Konfigurieren von serieller Schnittstelle vom Display 
         public void displayOutput()
         {
-            //Konfiguration von Seriellem Port
+            //Konfiguration vom seriellen Port
             SPDisp = new SerialPort (GLOBALS.COMM_PORT_DISP);
             SPDisp.BaudRate = 9600;
             SPDisp.Parity = Parity.Odd;
@@ -209,7 +209,7 @@ namespace _202223_bbs_projekt_kasse
 
             try
             {
-                //öffnen der Schnitstelle 
+                //Öffnen der Schnittstelle 
                 SPDisp.Open();
             }
             catch (Exception)
@@ -217,52 +217,52 @@ namespace _202223_bbs_projekt_kasse
                 //Fehlermeldung: Falscher COM Port!
                 throw;
             }
-            //inizeiller Reset von Display
+            //initialer Reset des Displays
             SPDisp.Write("\x1BR02");
             SPDisp.Write("\x1B[0c");
         }
 
         public void displayOnDisplay(string produktName, float Preis)
         {
-            //Neueröffung Serielle schnittstelle wenn geschlossen
+            //Öffnen der seriellen Schnittstelle, falls sie geschlossen ist
             if(SPDisp.IsOpen == false)
             {
                 SPDisp.Open();
             }
             //Display Reset
             SPDisp.Write("\x1B[2J");
-            //Curser wird Positioniert [{Py};{Px}H
+            //Cursor wird positioniert [{Py};{Px}H
             SPDisp.Write("\x1B[1;1H");
-            //Produkt Name wird anstlle auf Display ausgegebn
+            //Produktname wird an der Stelle des Cursors auf dem Display ausgegeben
             SPDisp.Write(produktName);
-            //Da Preis "Unten rechts" auf Display positioniert werden soll muss Preis länge bestimmt werden um Curser passend zu setztn [{Py};{Px}H
-            //+3 damit Währung angezeigt werden kann
+            //Da Preis "unten rechts" auf dem Display positioniert werden soll, muss die Länge vom Preis bestimmt werden um den Cursor passend zu setzen [{Py};{Px}H
+            //+3 damit die Währung angezeigt werden kann
             SPDisp.Write($"\x1B[2;{20 - (Convert.ToString(Preis).Length + 3)}H");
-            //ausgabe Preis von Produkt
+            //Ausgabe Preis von Produkt
             SPDisp.Write(Convert.ToString(Preis));
-            //Ausgabe Währung
+            //Ausgabe der Währung
             SPDisp.Write(" EUR");
         }
 
-        //EventHandler wenn Serielle Daten vom Scanner kommen
+        //EventHandler wenn serielle Daten vom Scanner kommen
         private void OnDataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             var serialDevice = sender as SerialPort;
-            //Entgegenname von Scanner input
+            //Entgegennahme vom Scanner input
             string barcode = serialDevice.ReadLine();
             //Entfernen von mitgesendetem Zeilenumbruch
             barcode = barcode.Remove(barcode.Length - 1);
 
-            //Deklaration Variablen die aus Datenbank abgefragt werden
+            //Deklaration der Variablen, die aus Datenbank abgefragt werden
             string bezeichnung;
             float preis;
             string hersteller;
 
             //SQL query string mit Barcode
             string sql = $"SELECT Bezeichnung, Preis, Hersteller FROM produkte WHERE EAN = {barcode}";
-            //Inizialisirung von MyMySqlCommand Instanz mit query und SQL verbindung
+            //Initialisierung von MySqlCommand Instanz mit query und SQL Verbindung
             MySqlCommand command = new MySqlCommand(sql, connection);
-            //SQL verbindung wird neu eröffnet fals geschlossen
+            //SQL Verbindung wird neu eröffnet, falls sie geschlossen ist
             if (connection.State == System.Data.ConnectionState.Closed)
             {
                 connection.Open();
@@ -270,24 +270,24 @@ namespace _202223_bbs_projekt_kasse
             
             //Query wird Ausgeführt
             MySqlDataReader reader = command.ExecuteReader();
-            //Wenn reader eine Rückgabe hat wird ausgeführt
+            //Wenn reader eine Rückgabe hat, wird ausgeführt
             if(reader.Read())
             {
-                //Zuweisung von variabeln aus SQL query
+                //Zuweisung von Variablen aus SQL Query
                 bezeichnung = reader.GetString("Bezeichnung");
                 preis = reader.GetFloat("Preis");
                 hersteller = reader.GetString("Hersteller");
                 //Eingriff in Window Thread per Dispatcher und Lambda Ausdruck
                 Application.Current.Dispatcher.Invoke(new Action(() => {
-                    //Erstellung von Neuem Produkt Objekt und gelichzeitigem hinzufügen in bon_list
+                    //Erstellung von neuem Produkt Objekt und gleichzeitigem Hinzufügen zu bon_list
                     bon_list.Items.Add(new Produkt { Barcode = barcode, Hersteller = hersteller, Preis = preis, Name = bezeichnung });
-                    //Produkt Preis wir auch im Summen Feld angezeigt
+                    //Preis des Produkts wird auch im Summen Feld angezeigt
                     bon_list_sum.Text = Convert.ToString(preis);
-                    //Preis wird auf den Totalen Pris drauf gerechnet
+                    //Preis wird auf den Totalen Preis draufgerechnet
                     bon_list_total.Text = Convert.ToString(Math.Round(Convert.ToDouble(bon_list_total.Text) + preis, 3));
                 }));
-                //Anzeigen von gescanntem Produkt Auf display
-                //hierfür übergaben an Funktion displayOnDisplay
+                //Anzeigen von gescanntem Produkt auf Display
+                //Übergaben hierfür an die Funktion displayOnDisplay
                 displayOnDisplay(bezeichnung, preis);
                 Debug.WriteLine("Produkt gefunden");               
             }
@@ -296,16 +296,16 @@ namespace _202223_bbs_projekt_kasse
                 //Fehlermeldung no product found (Mathis)
                 Debug.WriteLine($"Produktfehler/Nicht in der Datenbank/{connection.State}");
             }
-            //Reder wird geschlossen
+            //Reader wird geschlossen
             reader.Close();
             //Schließung fragwürdig
             connection.Close();            
         }
 
-        //Verbindungs aufbau zu Datenbank
+        //Verbindungsaufbau zur Datenbank
         public void Connect_to_SQL() 
         {
-            //Verbindungs String für Datenbank verbindung mit eingesetztn Parametern
+            //Verbindungs String für Datenbankverbindung mit eingesetzten Parametern
             string connectionString = $"Server={GLOBALS.SQL_IP};Database={GLOBALS.SQL_DB};Uid={GLOBALS.SQL_USER}";
             connection = new MySqlConnection(connectionString);
             try
@@ -314,19 +314,19 @@ namespace _202223_bbs_projekt_kasse
             }
             catch (Exception)
             {
-                //Bei gescheiterter Verbindung wird erneute eingabe von Datenbank Parametern gefordert
+                //Bei gescheiterter Verbindung wird erneute Eingabe von Datenbankparametern gefordert
                 Debug.WriteLine($"SQL Connection failed. SQL connection state: {connection.State}");
                 
-                //Eingriff in Window Thread per Dispatcher und Lambda ausdruck 
+                //Eingriff in Window Thread per Dispatcher und Lambda Ausdruck 
                 Application.Current.Dispatcher.Invoke(new Action(() =>
                 {
                     //Erstellen von WindowSQLlogin
-                    //Erneute eingabe von SQL Parametern
+                    //Erneute Eingabe von SQL Parametern
                     WindowSQLlogin winsqllog = new WindowSQLlogin();
                     //Anzeige als Dialog
                     winsqllog.ShowDialog();
                 }));
-                //Selbst aufruf der Funktion zur ernueten überprüfung der Login Parameter der SQL Datenbank
+                //Selbstaufruf der Funktion zur erneuten Überprüfung der Loginparameter der SQL Datenbank
                 Connect_to_SQL();
             }
             Debug.WriteLine("SQL connection successful");
@@ -336,19 +336,19 @@ namespace _202223_bbs_projekt_kasse
         //Kein Fail Safe
         private void manualEANsubmit_Click(object sender, RoutedEventArgs e)
         {
-            //barcode wird von Mannuell eingegebenen Barcode zugewiesen
+            //barcode wird eine manuell eingegebene EAN zugewiesen
             string barcode = manualEAN.Text;
 
-            //Deklaration Variablen die aus Datenbank abgefragt werden
+            //Deklaration von Variablen die aus der Datenbank abgefragt werden
             string bezeichnung;
             float preis;
             string hersteller;
             
             //SQL query string mit Barcode
             string sql = $"SELECT Bezeichnung, Preis, Hersteller FROM produkte WHERE EAN = {barcode}";
-            //Inizialisirung von MyMySqlCommand Instanz mit query und SQL verbindung
+            //Initialisierung von MySqlCommand Instanz mit query und SQL verbindung
             MySqlCommand command = new MySqlCommand(sql, connection);
-            //SQL verbindung wird neu eröffnet fals geschlossen
+            //SQL verbindung wird neu eröffnet, falls sie geschlossen ist
             if (connection.State == System.Data.ConnectionState.Closed)
             {
                 connection.Open();
@@ -370,16 +370,16 @@ namespace _202223_bbs_projekt_kasse
                     Application.Current.Dispatcher.Invoke(new Action(() => {
                         //Erstellung von Neuem Produkt Objekt und gelichzeitigem hinzufügen in bon_list
                         bon_list.Items.Add(new Produkt { Barcode = barcode, Hersteller = hersteller, Preis = preis, Name = bezeichnung });
-                        //Produkt Preis wir auch im Summen Feld angezeigt
+                        //Preis vom Produkt wird auch im Summenfeld angezeigt
                         bon_list_sum.Text = Convert.ToString(preis);
-                        //Preis wird auf den Totalen Pris drauf gerechnet
+                        //Preis wird auf den totalen Preis draufgerechnet
                         double gesamtBetrag = Convert.ToDouble(bon_list_total.Text);
                         gesamtBetrag += preis;
-                        //????
+                        // gesamtBetrag wird auf 2 Nachkommastellen gerundet als String in bon_list_total.Text reingeschrieben
                         bon_list_total.Text = gesamtBetrag.ToString("F2");
                     }));
-                    //Anzeigen von gescanntem Produkt Auf display
-                    //hierfür übergaben an Funktion displayOnDisplay
+                    //Anzeigen von gescanntem Produkt Auf Display
+                    //Übergaben hierfür an Funktion displayOnDisplay
                     displayOnDisplay(bezeichnung, preis);
                     Debug.WriteLine("Produkt gefunden");
                 }
@@ -388,7 +388,7 @@ namespace _202223_bbs_projekt_kasse
                     //Fehlermeldung no product found (Mathis)
                     Debug.WriteLine($"Produktfehler/Nicht in der Datenbank/{connection.State}");
                 }
-                //Reder wird geschlossen
+                //Reader wird geschlossen
                 reader.Close();
                 //Schließung fragwürdig
                 connection.Close();
