@@ -16,17 +16,18 @@ namespace _202223_bbs_projekt_kasse
 {
     /// <summary>
     /// Interaktionslogik für WindowOptions.xaml
+    /// Fenster zur Iniziellen abfrage von: Datanbank IP, Datenbank User, Datenbank Passwort, Datenbank Name, COM Port für Display und Scanner 
     /// </summary>
     public partial class WindowOptions : Window
     {
         public WindowOptions()
         {
-            InitializeComponent();
-            
+            InitializeComponent();           
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            //Schreiben von Eingaben in Globale Variabeln
             GLOBALS.SQL_IP = sqlip.Text;
             GLOBALS.SQL_USER = sqluser.Text;
             GLOBALS.SQL_PASSWORD = sqlpass.Password;
@@ -34,11 +35,6 @@ namespace _202223_bbs_projekt_kasse
             GLOBALS.COMM_PORT_DISP = commdisp.Text;
             GLOBALS.COMM_PORT_SCN = commscn.Text;
             this.Close();
-        }
-
-        private void commdisp_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
     }
 }
