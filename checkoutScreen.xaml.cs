@@ -162,12 +162,16 @@ namespace _202223_bbs_projekt_kasse
             }
             else
             {
-                //
+                //changeScreen wir mit zu übergebenden Werten erstellt
                 changeScreen chascr = new changeScreen(Convert.ToDouble(bon_list_total.Text), Convert.ToDouble(numpad_output1.Content));
+                //changeScreen wird als Dialog angezeigt
                 chascr.ShowDialog();
+                //checkoutScreen wird geschlossen
                 this.Close();
             }
+            //Kunden Display wird geleert
             SPDisp.Write("\x1B[2J");
+            //Serielle verbindung wird geschlossen
             SPDisp.Close();
         }
     }
