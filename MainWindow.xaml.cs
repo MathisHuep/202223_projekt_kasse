@@ -43,6 +43,8 @@ namespace _202223_bbs_projekt_kasse
         public MainWindow()
         {
             InitializeComponent();
+            //Anfängliches setzten des Bezahlvorgang auf false
+            GLOBALS.paymentSuccessful = false;   
             //Setzen der Textfelder bon_list_sum und bon_list_total auf 0
             bon_list_sum.Text = "0.00";
             bon_list_total.Text = "0.00";
@@ -150,6 +152,10 @@ namespace _202223_bbs_projekt_kasse
                 checkoutScreen chescr = new checkoutScreen();
                 //checkoutScreen wird als Dialog angezeigt
                 chescr.ShowDialog();
+                if (GLOBALS.paymentSuccessful)
+                {
+                    Reset();
+                }
             }
             else
             {
@@ -158,6 +164,17 @@ namespace _202223_bbs_projekt_kasse
                 outwin.ShowDialog();
             }
             
+        }
+
+        public void Reset() 
+        {
+            //Leeren der Bon Liste
+            bon_list.Items.Clear();
+            //Anfängliches setzten des Bezahlvorgang auf false
+            GLOBALS.paymentSuccessful = false;
+            //Setzen der Textfelder bon_list_sum und bon_list_total auf 0
+            bon_list_sum.Text = "0.00";
+            bon_list_total.Text = "0.00";
         }
 
         //Funktionalität "C" Button

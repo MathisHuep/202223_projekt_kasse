@@ -38,6 +38,8 @@ namespace _202223_bbs_projekt_kasse
         //Funktionalität Fertig Knopf 
         private void confirmChangeClick(object sender, RoutedEventArgs e)
         {
+            //Bezahlvorgang wird Global als erfolgreich gesetzt
+            GLOBALS.paymentSuccessful = true;
             //changeScreen wird geschlossen
             this.Close();
         }

@@ -24,6 +24,7 @@ namespace _202223_bbs_projekt_kasse
         public paymentSuccessful()
         {
             InitializeComponent();
+            GLOBALS.paymentSuccessful = true;
         }
 
         //Funktionalität Bestätigen Knopf

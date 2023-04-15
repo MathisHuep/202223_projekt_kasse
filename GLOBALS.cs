@@ -34,6 +34,8 @@ namespace _202223_bbs_projekt_kasse
         public static SerialPort SPScan { get; set; }
         //Übergabe für Globalen Zugriff auf Serial Port für Display
         public static SerialPort SPDisp { get; set; }
+        //Übergibt ob der Bezahlvorgang abgeschlossen ist
+        public static bool paymentSuccessful { get; set; }
 
     }
 }
