@@ -1,0 +1,30 @@
+﻿<Window x:Class="_202223_bbs_projekt_kasse.comPortCorrection"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_202223_bbs_projekt_kasse"
+        mc:Ignorable="d"
+        Title="comPortCorrection" MaxHeight="200" MaxWidth="400" MinHeight="200" MinWidth="400">
+    <Grid>
+        <Grid Margin="30">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock x:Name="comPortDisplayText" Text="COM Port Display: " HorizontalAlignment="Right" Grid.Row="0"/>
+            <TextBlock x:Name="comPortScannerText" Text="COM Port Scanner: " HorizontalAlignment="Right" Grid.Row="1"/>
+
+            <TextBox x:Name="comPortDisplayTextBox" Grid.Column="1" Grid.Row="0"/>
+            <TextBox x:Name="comPortScannerTextBox" Grid.Column="1" Grid.Row="1"/>
+
+            <Button x:Name="comPortCorrectionConfirm" Content="Confirm" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Click="comPortCorrectionConfirm_Click"/>
+        </Grid>
+    </Grid>
+</Window>
