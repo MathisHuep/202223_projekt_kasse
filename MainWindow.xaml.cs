@@ -158,6 +158,8 @@ namespace _202223_bbs_projekt_kasse
                 if (GLOBALS.paymentSuccessful)
                 {
                     Reset();
+                    //Erzungene garbage Collection
+                    System.GC.Collect();
                 }
             }
             else
