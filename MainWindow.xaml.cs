@@ -58,9 +58,6 @@ namespace _202223_bbs_projekt_kasse
             SQlquery.Start();
             scanning.Start();
             output.Start();
-
-
-
         }
 
         //Nachfolgend bis numpad_but_0_Click
@@ -155,8 +152,10 @@ namespace _202223_bbs_projekt_kasse
                 chescr.ShowDialog();
             }
             else
-            { 
+            {
                 //Fehlermeldung: Kein Item Gescannt!
+                outputWindow outwin = new outputWindow("Kein Item Gescannt!");
+                outwin.ShowDialog();
             }
             
         }
@@ -295,6 +294,8 @@ namespace _202223_bbs_projekt_kasse
             {
                 //Fehlermeldung no product found (Mathis)
                 Debug.WriteLine($"Produktfehler/Nicht in der Datenbank/{connection.State}");
+                outputWindow outwin = new outputWindow($"Produktfehler/Nicht in der Datenbank/\r\n SQL Con stat{connection.State}");
+                outwin.ShowDialog();
             }
             //Reader wird geschlossen
             reader.Close();
@@ -385,8 +386,10 @@ namespace _202223_bbs_projekt_kasse
                 }
                 else
                 {
-                    //Fehlermeldung no product found (Mathis)
+                    //Fehlermeldung: Produkt nicht gefunden
                     Debug.WriteLine($"Produktfehler/Nicht in der Datenbank/{connection.State}");
+                    outputWindow outwin = new outputWindow($"Produktfehler/Nicht in der Datenbank/\r\n SQL Verbindungsstatus: {connection.State}");
+                    outwin.ShowDialog();
                 }
                 //Reader wird geschlossen
                 reader.Close();
