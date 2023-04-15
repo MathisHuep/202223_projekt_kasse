@@ -29,8 +29,6 @@ namespace _202223_bbs_projekt_kasse
     /// <summary>
     /// Interaktionslogik für MainWindow.xaml
     /// </summary>
-
-    
     public partial class MainWindow : Window
     {
         //Annahme von globalen Variabeln
@@ -121,7 +119,7 @@ namespace _202223_bbs_projekt_kasse
         {
             numpad_output1.Content = null;
         }
-
+        
 
         //Funktionalität Checkout-Button
         private void checkoutClick(object sender, RoutedEventArgs e)
@@ -133,6 +131,11 @@ namespace _202223_bbs_projekt_kasse
                 GLOBALS.currentBon = bon_list.Items;
                 //gleiches mit Total-Wert
                 GLOBALS.Total = Convert.ToDouble(bon_list_total.Text);
+                //Serial Port Verbindung überprüfen
+                if (SPDisp.IsOpen == false)
+                {
+                    SPDisp.Open();
+                }
                 //Inhalt des Displays wird gelöscht
                 SPDisp.Write("\x1B[2J");
                 //Cursor wird positioniert [{Py};{Px}H

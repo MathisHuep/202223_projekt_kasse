@@ -132,6 +132,7 @@ namespace _202223_bbs_projekt_kasse
 
         private void cancel_Click(object sender, RoutedEventArgs e)
         {
+            SPDisp.Close();
             this.Close();
         }
 
@@ -141,15 +142,12 @@ namespace _202223_bbs_projekt_kasse
         private void Backspace_Click(object sender, RoutedEventArgs e)
         {
             //Überprüfung auf Inhalt 
-            if (numpad_output1.Content == null && numpad_output1.Content.ToString() == "")
+               
+            if(numpad_output1.Content != null && numpad_output1.Content.ToString().Length != 0)
             {
-                
-                if(numpad_output1.Content.ToString().Length != 0)
-                {
-                    numpad_output1.Content = numpad_output1.Content.ToString().Remove(numpad_output1.Content.ToString().Length - 1);
-                }
+                numpad_output1.Content = numpad_output1.Content.ToString().Remove(numpad_output1.Content.ToString().Length - 1);
             }
-            
+
             
         }
 
@@ -157,7 +155,7 @@ namespace _202223_bbs_projekt_kasse
         private void cash_Click(object sender, RoutedEventArgs e)
         {
             //Überprüfen, ob eine gegebene Summe eingegeben wurde, wenn nicht, dann Annahme, dass passend bezahlt wurde 
-            if (numpad_output1.Content == null)
+            if (numpad_output1.Content == null || Convert.ToInt32(numpad_output1.Content.ToString()) == 0)
             {
                 //Erstellung paymentSuccessful
                 paymentSuccessful paymsuc = new paymentSuccessful();
