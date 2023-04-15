@@ -8,13 +8,25 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Kasse Release|Any CPU = Kasse Release|Any CPU
+		Kasse Release|x64 = Kasse Release|x64
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{13728D0A-EAE0-4A14-AAD0-2CAFB1DB2AE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{13728D0A-EAE0-4A14-AAD0-2CAFB1DB2AE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13728D0A-EAE0-4A14-AAD0-2CAFB1DB2AE5}.Debug|x64.ActiveCfg = Debug|x64
+		{13728D0A-EAE0-4A14-AAD0-2CAFB1DB2AE5}.Debug|x64.Build.0 = Debug|x64
+		{13728D0A-EAE0-4A14-AAD0-2CAFB1DB2AE5}.Kasse Release|Any CPU.ActiveCfg = Kasse Release|Any CPU
+		{13728D0A-EAE0-4A14-AAD0-2CAFB1DB2AE5}.Kasse Release|Any CPU.Build.0 = Kasse Release|Any CPU
+		{13728D0A-EAE0-4A14-AAD0-2CAFB1DB2AE5}.Kasse Release|x64.ActiveCfg = Kasse Release|x64
+		{13728D0A-EAE0-4A14-AAD0-2CAFB1DB2AE5}.Kasse Release|x64.Build.0 = Kasse Release|x64
 		{13728D0A-EAE0-4A14-AAD0-2CAFB1DB2AE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13728D0A-EAE0-4A14-AAD0-2CAFB1DB2AE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13728D0A-EAE0-4A14-AAD0-2CAFB1DB2AE5}.Release|x64.ActiveCfg = Release|x64
+		{13728D0A-EAE0-4A14-AAD0-2CAFB1DB2AE5}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
