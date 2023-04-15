@@ -163,8 +163,11 @@ namespace _202223_bbs_projekt_kasse
             else
             {
                 //Fehlermeldung: Kein Item Gescannt!
+                Application.Current.Dispatcher.Invoke(new Action(() => 
+                { 
                 outputWindow outwin = new outputWindow("Kein Item Gescannt!");
                 outwin.ShowDialog();
+                }));                
             }
             
         }
@@ -314,8 +317,11 @@ namespace _202223_bbs_projekt_kasse
             {
                 //Fehlermeldung no product found (Mathis)
                 Debug.WriteLine($"Produktfehler/Nicht in der Datenbank/{connection.State}");
+                Application.Current.Dispatcher.Invoke(new Action(() =>
+                {
                 outputWindow outwin = new outputWindow($"Produktfehler/Nicht in der Datenbank/\r\n SQL Con stat{connection.State}");
                 outwin.ShowDialog();
+                }));                
             }
             //Reader wird geschlossen
             reader.Close();
