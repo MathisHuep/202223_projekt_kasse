@@ -22,7 +22,11 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using MySql.Data;
 using MySql.Data.MySqlClient;
-
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json;
+using Google.Protobuf;
+using Org.BouncyCastle.Math;
 
 namespace _202223_bbs_projekt_kasse
 {
@@ -157,6 +161,24 @@ namespace _202223_bbs_projekt_kasse
                 chescr.ShowDialog();
                 if (GLOBALS.paymentSuccessful)
                 {
+                    string J;
+                    
+                    Produkt[] currentBon = new Produkt[bon_list.Items.Count];
+
+                    for (int i = 0; i < bon_list.Items.Count; i++)
+                    {
+//                        var innerCurrentBon = new Produkt { Barcode = bon_list.Items , Hersteller = hersteller, Preis = preis, Name = bezeichnung };
+
+
+                        
+                        //currentBon.Append(innerCurrentBon);
+                    }
+                   
+                    
+                    var json = JsonConvert.SerializeObject(currentBon);
+                    
+                    Debug.WriteLine(json);
+                    Debug.WriteLine(currentBon);
                     Reset();
                     //Erzungene garbage Collection
                     System.GC.Collect();
