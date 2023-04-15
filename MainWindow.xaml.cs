@@ -163,8 +163,11 @@ namespace _202223_bbs_projekt_kasse
             else
             {
                 //Fehlermeldung: Kein Item Gescannt!
-                outputWindow outwin = new outputWindow("Kein Item Gescannt!");
-                outwin.ShowDialog();
+                Application.Current.Dispatcher.Invoke(new Action(() => 
+                { 
+                    outputWindow outwin = new outputWindow("Kein Item Gescannt!");
+                    outwin.ShowDialog();
+                }));                
             }
             
         }
@@ -244,8 +247,8 @@ namespace _202223_bbs_projekt_kasse
                 {
                     comPortCorrection comcor = new comPortCorrection(false);
                     comcor.ShowDialog();
-                    displayOutput();
                 }));
+                displayOutput();
             }
             //initialer Reset des Displays
             SPDisp.Write("\x1BR02");
