@@ -140,8 +140,10 @@ namespace _202223_bbs_projekt_kasse
 
         private void Backspace_Click(object sender, RoutedEventArgs e)
         {
-            if (numpad_output1.Content == null && numpad_output1.Content == "")
+            //Überprüfung auf Inhalt 
+            if (numpad_output1.Content == null && numpad_output1.Content.ToString() == "")
             {
+                
                 if(numpad_output1.Content.ToString().Length != 0)
                 {
                     numpad_output1.Content = numpad_output1.Content.ToString().Remove(numpad_output1.Content.ToString().Length - 1);
