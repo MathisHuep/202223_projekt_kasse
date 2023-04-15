@@ -163,11 +163,8 @@ namespace _202223_bbs_projekt_kasse
             else
             {
                 //Fehlermeldung: Kein Item Gescannt!
-                Application.Current.Dispatcher.Invoke(new Action(() => 
-                { 
                 outputWindow outwin = new outputWindow("Kein Item Gescannt!");
                 outwin.ShowDialog();
-                }));                
             }
             
         }
@@ -211,7 +208,13 @@ namespace _202223_bbs_projekt_kasse
             catch (Exception)
             {
                 //Fehlermeldung: Falscher COM Port!
-                throw;
+                Application.Current.Dispatcher.Invoke(new Action(() =>
+                {
+                    comPortCorrection comcor = new comPortCorrection(true);
+                    comcor.ShowDialog();
+                }));
+                
+                scannerInput();
             }
             
         }
@@ -237,11 +240,17 @@ namespace _202223_bbs_projekt_kasse
             catch (Exception)
             {
                 //Fehlermeldung: Falscher COM Port!
-                throw;
+                Application.Current.Dispatcher.Invoke(new Action(() =>
+                {
+                    comPortCorrection comcor = new comPortCorrection(false);
+                    comcor.ShowDialog();
+                    displayOutput();
+                }));
             }
             //initialer Reset des Displays
             SPDisp.Write("\x1BR02");
             SPDisp.Write("\x1B[0c");
+            SPDisp.Write("\x1B[2J");
         }
 
         public void displayOnDisplay(string produktName, float Preis)
@@ -319,8 +328,8 @@ namespace _202223_bbs_projekt_kasse
                 Debug.WriteLine($"Produktfehler/Nicht in der Datenbank/{connection.State}");
                 Application.Current.Dispatcher.Invoke(new Action(() =>
                 {
-                outputWindow outwin = new outputWindow($"Produktfehler/Nicht in der Datenbank/\r\n SQL Con stat{connection.State}");
-                outwin.ShowDialog();
+                    outputWindow outwin = new outputWindow($"Produktfehler/Nicht in der Datenbank/\r\n SQL Con stat{connection.State}");
+                    outwin.ShowDialog();
                 }));                
             }
             //Reader wird geschlossen

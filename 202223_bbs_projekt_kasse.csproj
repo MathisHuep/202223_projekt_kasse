@@ -99,6 +99,9 @@
     <Compile Include="checkoutScreen.xaml.cs">
       <DependentUpon>checkoutScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="comPortCorrection.xaml.cs">
+      <DependentUpon>comPortCorrection.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GLOBALS.cs" />
     <Compile Include="outputWindow.xaml.cs">
       <DependentUpon>outputWindow.xaml</DependentUpon>
@@ -117,6 +120,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="checkoutScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="comPortCorrection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

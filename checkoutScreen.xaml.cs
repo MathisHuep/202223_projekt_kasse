@@ -62,7 +62,12 @@ namespace _202223_bbs_projekt_kasse
             catch (Exception)
             {
                 //Fehlermeldung: Falscher COM Port!
-                throw;
+                Application.Current.Dispatcher.Invoke(new Action(() =>
+                {
+                    comPortCorrection comcor = new comPortCorrection(false);
+                    comcor.ShowDialog();
+                }));
+                displayOutput();
             }
         }
 
