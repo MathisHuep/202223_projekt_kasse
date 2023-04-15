@@ -129,7 +129,6 @@ namespace _202223_bbs_projekt_kasse
             numpad_output1.Content += "00";
         }
 
-
         private void cancel_Click(object sender, RoutedEventArgs e)
         {
             SPDisp.Close();
@@ -138,7 +137,6 @@ namespace _202223_bbs_projekt_kasse
 
         //Funktionalität "C" Knopf
         //Löscht die letzte Stelle von numpad_output1
-
         private void Backspace_Click(object sender, RoutedEventArgs e)
         {
             //Überprüfung auf Inhalt 
