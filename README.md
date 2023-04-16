@@ -1,4 +1,4 @@
-# KASSEN SCHUL Projekt
+# KASSEN Schulprojekt
 
 ```json
    Disclaimer/Haftungsausschluss
